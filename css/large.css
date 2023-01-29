@@ -1,0 +1,20 @@
+@media  (min-width: 64em) {
+  
+            
+    .hero-text {
+        left: 22px;
+        position: relative;
+        /* top: 7px; */
+        top: -8px;
+}
+        
+ 
+    .upgrades img {
+        padding: 1rem 30%;
+        }
+        .upgrade {
+            margin: 1rem 2rem;
+            width: 100%;
+        }
+        
+    }

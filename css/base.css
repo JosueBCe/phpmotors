@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital@1&family=Roboto+Condensed&display=swap');
+:root {
+    --gray-color: #bababa;
+    --main-gray-color: #8d8d8d;
+    --dark-gray-color: #3a3a3a;
+    --blue-light-color: #a6cbeb;
+    --blue-color: #075eab;
+    --white: #ffffff;
+}
+
+html {
+    background-size: 450px 450px;
+    background-repeat: repeat;
+    background-image: url('../images/site/checkerboard.jpg');
+
+}
+
+body {
+    font-family:"Roboto Condensed" , "Arvo";
+    background-color: var(--white);
+}
+
+#logo {
+    margin: .3rem 0;
+}
+
+header,
+.nav-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    align-items: center;
+}
+
+body,
+header,
+nav,
+main,
+footer {
+    margin: 0rem auto;
+    max-width: 1000px;
+
+}
+
+
+
+nav {
+    background-color: var(--dark-gray-color);
+
+}
+
+.my-account {
+    margin-right: .5rem; 
+}
+#account-link {
+    text-decoration: none;
+    color: black;
+}
+.nav-list {
+    justify-content: left;
+    padding: 0;
+    font-size: .8rem;
+}
+
+li {
+    padding: .7rem .3rem;
+}
+
+.nav-list li:hover {
+    color: black;
+    background-color: var(--blue-color);
+}
+
+ul a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+ul a:hover {
+    color: black;
+
+}
+
+hr {
+    border: solid 2px black;
+}
+
+.hero .hero-image img {
+    width: 100%;
+    margin: 50px 0px 115px 0px;
+}
+
+.hero-text {
+    position: absolute;
+    left: 15px;
+    top: 23%;
+    color: var(--blue-color);
+    width: 50%;
+}
+
+.hero .btn {
+    text-align: center;
+    position: absolute;
+    top: 72vw;
+    right: -34%;
+}
+
+.hero button {
+    padding: 1rem 2.5rem;
+    color: white;
+    background-color: var(--blue-color);
+    border: solid 1px var(--main-gray-color);
+
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    margin-top: 0;
+}
+
+p,
+h2 {
+    margin: .1rem;
+    font-size: .8rem;
+}
+
+.reviews,
+.upgrades {
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+
+.upgrades {
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: 1fr 1fr;
+    /* justify-content: center; */
+    align-items: center;
+    justify-items: center;
+}
+
+.upgrades h1 {
+    grid-column: span 2;
+    margin-right: 4.5rem;
+
+}
+
+.upgrades img {
+    padding: 1rem 23%;
+    height: 50px;
+    background-color: var(--blue-color);
+    border: solid 1px var(--dark-gray-color);
+}
+
+.upgrade {
+    text-align: center;
+    margin: 0.5rem;
+}
+
+footer {
+    padding: 0.2rem 0rem;
+}
+
+footer p {
+    margin: .3rem;
+    text-align: center;
+}
+
+.main-error {
+    display: block;
+    margin: 1rem;
+}
+
+
+/* Login Page & Registration Page */
+
+.main-form {
+    display: block;
+    margin: 1rem;
+}
+form {
+    display: inline-flex;
+    flex-direction: column;
+
+    max-width: 300px;
+    min-width: 250px;
+}
+
+form input {
+    padding: 0.4rem;
+    box-shadow: 1px 0px 2px 0px var(--gray-color);
+}
+
+form label, #password-requierements{
+    font-weight: bold;
+    font-size: 17px; 
+    margin-top: 0.7rem;
+
+}
+
+.required {
+    color: rgb(129, 0, 0);
+  }
+  
+
+.sign-in-up-btn {
+    background-color: var(--blue-color);
+    font-size: 20px;
+    padding: 0.1rem 0.5rem;
+    width: fit-content;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+#showPassword {
+    margin: 1rem 0rem;
+    background-color: var(--dark-gray-color);
+    color: white;
+    padding: .5rem;
+}
