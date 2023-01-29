@@ -28,11 +28,12 @@
       echo $message;
     }
     ?>
-    <form action="add-classification.php" method="post">
+    <form action="/phpmotors/vehicles/index.php" method="post">
       <label for="classificationName">Classification Name </label>
       <input type="text" id="classificationName" name="classificationName">
       <br>
       <input class="sign-in-up-btn" type="submit" value="Add Classification">
+       <input type="hidden" name="action" value="register">
     </form>
   </main>
   <footer>

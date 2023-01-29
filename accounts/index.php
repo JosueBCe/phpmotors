@@ -36,11 +36,12 @@ $action = filter_input(INPUT_POST, 'action');
   case 'registration':
   include '../view/registration.php';
   break;
-  case 'register':
+
   default:
   include '../view/login.php';
   break;
   
+  case 'register':
 // Filter and store the data
   $clientFirstname = filter_input(INPUT_POST, 'clientFirstname');
   $clientLastname = filter_input(INPUT_POST, 'clientLastname');

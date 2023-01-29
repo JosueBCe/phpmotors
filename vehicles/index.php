@@ -6,6 +6,7 @@
 require_once '../library/connections.php';
 // Get the PHP Motors model for use as needed
 require_once '../model/main-model.php';
+require_once '../model/vehicles-model.php';
 // Get the accounts model
 
 
@@ -26,14 +27,15 @@ $action = filter_input(INPUT_POST, 'action');
  if ($action == NULL){
   $action = filter_input(INPUT_GET, 'action');
  } 
- switch ($action){
-  case 'add-classification.php':
-  include '../view/add-classification.php';
-  break;
+
+
+switch ($action){
+ 
   default:
   include '../view/add-classification.php';
   break;
-
+  case 'register':
+   
 
 //   case 'login':
 //   include '../view/login.php';
@@ -45,13 +47,10 @@ $action = filter_input(INPUT_POST, 'action');
 // // Filter and store the data
   
 $classificationName = filter_input(INPUT_POST, 'classificationName');
-//   $clientLastname = filter_input(INPUT_POST, 'clientLastname');
-//   $clientEmail = filter_input(INPUT_POST, 'clientEmail');
-//   $clientPassword = filter_input(INPUT_POST, 'clientPassword');
 
 // Check for missing data
 if(empty($classificationName) ){
-    $message = '<p>Please provide information for all empty form fields.</p>';
+    $message = '<p>Please provide a New Name for a Car Classification.</p>';
     include '../view/add-classification.php';
     exit;
 }
