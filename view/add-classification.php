@@ -33,7 +33,7 @@
       <input type="text" id="classificationName" name="classificationName">
       <br>
       <input class="sign-in-up-btn" type="submit" value="Add Classification">
-       <input type="hidden" name="action" value="register">
+       <input type="hidden" name="action" value="register-classification">
     </form>
   </main>
   <footer>
