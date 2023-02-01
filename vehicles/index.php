@@ -22,12 +22,16 @@ foreach ($classifications as $classification) {
 }
 $navList .= '</ul>';
 
-
-$classificationOptions  = '<select id="classification">
+$classificationsIdAndClassification = getIdAndClassification();
+$classificationOptions  = '<select name="classificationId" id="classification">
 <option value="" disabled selected>Choose One Classification</option>';
 
-foreach ($classifications as $classification) {
-  $classificationOptions  .= "<option value='$classification[classificationName]'>$classification[classificationName]</option>";
+$classificationsIdAndClassification = getIdAndClassification();
+
+
+
+foreach ($classificationsIdAndClassification as $classification) {
+  $classificationOptions  .= "<option value=$classification[classificationId]>$classification[classificationName]</option>";
  }
 $classificationOptions .= '</select>';
 
@@ -51,57 +55,55 @@ switch ($action){
   break;
     
 
-  case 'register-classification':
-   
-
-//   case 'login':
-//   include '../view/login.php';
-//   break;
-//   case 'registration':
-//   include '../view/registration.php';
-//   break;
-//   case 'register':
-// // Filter and store the data
   
-$classificationName = filter_input(INPUT_POST, 'classificationName');
-
-// Check for missing data
-if(empty($classificationName) ){
-    $message = '<p>Please provide a New Name for a Car Classification.</p>';
-    include '../view/add-classification.php';
+// Registering Vehicle 
+case 'register-vehicle':
+  
+  $invMake = filter_input(INPUT_POST, 'invMake');
+  $invModel = filter_input(INPUT_POST, 'invModel');
+  $invDescription = filter_input(INPUT_POST, 'invDescription');
+  $invImage = filter_input(INPUT_POST, 'invImage');
+  $invThumbnail = filter_input(INPUT_POST, 'invThumbnail');
+  $invPrice = filter_input(INPUT_POST, 'invPrice');
+  $invStock = filter_input(INPUT_POST, 'invStock');
+  $invColor = filter_input(INPUT_POST, 'invColor');
+  $classificationId = filter_input(INPUT_POST,  'classificationId');
+  // Check for missing data
+  if(empty($invMake) || empty($invModel) || empty($invDescription) || 
+     empty($invImage) || empty($invThumbnail) || empty($invPrice) || 
+     empty($invStock) || empty($invColor) || empty($classificationId) ){
+    $message = '<p>Please provide all the required information to register a new vehicle.</p>';
+    include '../view/add-vehicle.php';
     exit;
-}
+  }
 
-// Send the data to the model
-$regOutcome = regClassification($classificationName);
+  // Send the data to the model
+  $regOutcomeVehicles = regVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $classificationId);
 
- //Check and report the result
- if($regOutcome === 1){
-  //  $message = "<p>Thanks for registering $classificationName. You'll see in the NavBar the new Classification.</p>";
-   include '../view/vehicle-mang.php';
-   
-
+  //Check and report the result
+  if($regOutcomeVehicles === 1){
+    //$message = "<p>Thanks for registering the vehicle. You'll see it in the vehicle management page.</p>";
+    include '../view/vehicle-mang.php';
+    
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $_SESSION['form_data'] = $_POST;
-        header('Location: ' . $_SERVER['REQUEST_URI']);
-        exit;
+      $_SESSION['form_data'] = $_POST;
+      header('Location: ' . $_SERVER['REQUEST_URI']);
+      exit;
     }
 
     if (isset($_SESSION['form_data'])) {
-        $form_data = $_SESSION['form_data'];
-        unset($_SESSION['form_data']);
+      $form_data = $_SESSION['form_data'];
+      unset($_SESSION['form_data']);
     } else {
-        $form_data = array();
+      $form_data = array();
     }
-   exit;
- } else {
-   $message = "<p>Sorry $classificationName, but the Classification registration failed. Please try again.</p>";
-   include '../view/add-classification.php';
-   exit;
- }
- break;
+    exit;
+  } else {
+    $message = "<p>Sorry, but the vehicle registration failed. Please try again.</p>";
+    include '../view/add-vehicle.php';
+    exit;
+  }
+  break;
 }
-  // default:
-  // include '/view/home.php';
-  // break;
+
 

@@ -31,32 +31,35 @@
             echo $message;
         }
         ?>
-    <h2>Note all Fields are Required</h2>
-        <form action="/phpmotors/accounts/index.php" method="post">
-                 <?php
-        // require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/nav.php'; 
-        echo $classificationOptions;
-        ?>
-            <label for="clientFirstname">First Name <span class="required">*</span></label>
-            <input type="text" name="clientFirstname" id="clientFirstname">
-
-            <label for="clientLastname">Last Name <span class="required">*</span></label>
-            <input type="text" id="clientLastname" name="clientLastname">
-
-            <label for="clientEmail">Email <span class="required">*</span></label>
-            <input type="email" id="clientEmail" name="clientEmail">
-            <p id="password-requierements">Passwords must be at least 8 characters and contain at least 1 number, 1 cpital letter and 1 special character</p>
-            <label for="clientPassword">Password <span class="required">*</span></label>
-            <input type="password" id="clientPassword" name="clientPassword">
-            <button type="button" id="showPassword">Show Password</button>
+        <h2>Note all Fields are Required</h2>
+        <form action="/phpmotors/vehicles/index.php" method="post">
             <?php
-            if (isset($_POST['submit'])) {
-                $password = $_POST['password'];
-                echo "The password you entered is: " . $password;
-            }
+            // require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/nav.php'; 
+            echo $classificationOptions;
             ?>
-            <input class="sign-in-up-btn" type="submit" value="Register">
-            <input type="hidden" name="action" value="register">
+            <label for="invMake">Make <span class="required">*</span></label>
+            <input type="text" name="invMake" id="invMake">
+
+            <label for="invModel">Model <span class="required">*</span></label>
+            <input type="text" id="invModel" name="invModel">
+
+            <label for="invDescription">Description <span class="required">*</span></label>
+            <input type="text" id="invDescription" name="invDescription">
+
+            <label for="invImage">invImage <span class="required">*</span></label>
+            <input type="text" id="invImage" name="invImage">
+            <label for="invThumbnail">Thumbnail <span class="required">*</span></label>
+            <input type="text" id="invThumbnail" name="invThumbnail">
+
+            <label for="invPrice">Price <span class="required">*</span></label>
+            <input type="number" id="invPrice" name="invPrice">
+            <label for="invStock">Stock <span class="required">*</span></label>
+            <input type="number" id="invStock" name="invStock">
+            <label for="invColor">Color <span class="required">*</span></label>
+            <input type="text" id="invColor" name="invColor">
+            <br>
+            <input class="sign-in-up-btn" type="submit" value="Add Vehicle">
+            <input type="hidden" name="action" value="register-vehicle">
 
         </form>
 
