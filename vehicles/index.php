@@ -23,7 +23,8 @@ foreach ($classifications as $classification) {
 $navList .= '</ul>';
 
 $classificationsIdAndClassification = getIdAndClassification();
-$classificationOptions  = '<select name="classificationId" id="classification">
+$classificationOptions  = '<label for="classification">Choose a Option:</label>
+<select name="classificationId" id="classification">
 <option value="" disabled selected>Choose One Classification</option>';
 
 $classificationsIdAndClassification = getIdAndClassification();

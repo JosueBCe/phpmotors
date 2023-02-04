@@ -31,7 +31,7 @@
             echo $message;
         }
         ?>
-        <h2>Note all Fields are Required</h2>
+        <h2>*Note all Fields are Required</h2>
         <form action="/phpmotors/vehicles/index.php" method="post">
             <?php
             // require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/nav.php'; 
