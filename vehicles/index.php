@@ -55,7 +55,46 @@ switch ($action){
   include '../view/add-vehicle.php';
   break;
     
-
+  case 'register-classification':
+  
+    $classificationName = filter_input(INPUT_POST, 'classificationName');
+    
+    // Check for missing data
+    if(empty($classificationName) ){
+        $message = '<p>Please provide a New Name for a Car Classification.</p>';
+        include '../view/add-classification.php';
+        exit;
+    }
+    
+    // Send the data to the model
+    $regOutcome = regClassification($classificationName);
+    
+     //Check and report the result
+     if($regOutcome === 1){
+      //  $message = "<p>Thanks for registering $classificationName. You'll see in the NavBar the new Classification.</p>";
+       include '../view/vehicle-mang.php';
+       
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $_SESSION['form_data'] = $_POST;
+            header('Location: ' . $_SERVER['REQUEST_URI']);
+            exit;
+        }
+    
+        if (isset($_SESSION['form_data'])) {
+            $form_data = $_SESSION['form_data'];
+            unset($_SESSION['form_data']);
+        } else {
+            $form_data = array();
+        }
+       exit;
+     } else {
+       $message = "<p>Sorry $classificationName, but the Classification registration failed. Please try again.</p>";
+       include '../view/add-classification.php';
+       exit;
+     }
+     break;
+    
   
 // Registering Vehicle 
 case 'register-vehicle':
@@ -84,8 +123,8 @@ case 'register-vehicle':
   //Check and report the result
   if($regOutcomeVehicles === 1){
     //$message = "<p>Thanks for registering the vehicle. You'll see it in the vehicle management page.</p>";
-    include '../view/vehicle-mang.php';
-    
+  
+   
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['form_data'] = $_POST;
       header('Location: ' . $_SERVER['REQUEST_URI']);
@@ -98,7 +137,9 @@ case 'register-vehicle':
     } else {
       $form_data = array();
     }
-    exit;
+    $message = "<p>The $invMake was added successfully</p>";
+    include '../view/add-vehicle.php';  
+
   } else {
     $message = "<p>Sorry, but the vehicle registration failed. Please try again.</p>";
     include '../view/add-vehicle.php';
