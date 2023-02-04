@@ -30,18 +30,18 @@ $action = filter_input(INPUT_POST, 'action');
 
  switch ($action){
  case 'template':
-  include 'view/template.php';
+  include './view/template.php';
   break;
   case 'login':
-  include 'view/login.php';
+  include './view/login.php';
   break;
   case '500':
-    include 'view/500.php';
+    include './view/500.php';
     break;
     
 
  default:
-  include 'view/home.php';
+  include './view/home.php';
   break;
 }
 
