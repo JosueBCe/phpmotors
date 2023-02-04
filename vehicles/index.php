@@ -125,11 +125,11 @@ case 'register-vehicle':
     //$message = "<p>Thanks for registering the vehicle. You'll see it in the vehicle management page.</p>";
   
    
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $_SESSION['form_data'] = $_POST;
-      header('Location: ' . $_SERVER['REQUEST_URI']);
-      exit;
-    }
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //   $_SESSION['form_data'] = $_POST;
+    //   header('Location: ' . $_SERVER['REQUEST_URI']);
+    //   exit;
+    // }
 
     if (isset($_SESSION['form_data'])) {
       $form_data = $_SESSION['form_data'];
@@ -137,7 +137,7 @@ case 'register-vehicle':
     } else {
       $form_data = array();
     }
-    $message = "<p>The $invMake was added successfully</p>";
+    $message = "<p> <strong>The $invMake was added successfully</strong></p>";
     include '../view/add-vehicle.php';  
 
   } else {

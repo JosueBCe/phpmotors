@@ -31,6 +31,7 @@
             echo $message;
         }
         ?>
+        <br>
         <h2>*Note all Fields are Required</h2>
         <form action="/phpmotors/vehicles/index.php" method="post">
             <?php
@@ -67,7 +68,6 @@
     <footer>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
     </footer>
-    <script src="../library/show_password.js"></script>
 </body>
 
 </html>

@@ -221,3 +221,9 @@ form label, #password-requierements{
     color: white;
     padding: .5rem;
 }
+#classification, form input {
+    padding: 0.3rem;
+    text-align: center;
+    border: solid 2px var(--blue-color);
+    border-radius: 0.2rem;
+}
