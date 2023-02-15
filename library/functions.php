@@ -13,4 +13,16 @@ function checkPassword($clientPassword){
 }
 
 
+function navBar($carclassifications){
+// Build a navigation bar using the $classifications array
+$nav = '<ul class="nav-list">';
+$nav .= "<li><a href='/phpmotors/index.php' title='View the PHP Motors home page'>Home</a></li>";
+foreach ($carclassifications as $classification) {
+  $nav .= "<li><a href='/phpmotors/index.php?action=" . urlencode($classification['classificationName']) . "' title='View our $classification[classificationName] product line'>$classification[classificationName]</a></li>";
+}
+$nav .= '</ul>';
+return $nav;
+}
+
+ 
 ?>
