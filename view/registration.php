@@ -33,16 +33,19 @@
         ?>
         <form action="/phpmotors/accounts/index.php" method="post">
             <label for="clientFirstname">First Name <span class="required">*</span></label>
-            <input type="text" name="clientFirstname" id="clientFirstname">
+            <input type="text" name="clientFirstname" id="clientFirstname" required <?php 
+            if(isset($clientFirstname)){echo "value='$clientFirstname'";}  ?>>
 
             <label for="clientLastname">Last Name <span class="required">*</span></label>
-            <input type="text" id="clientLastname" name="clientLastname">
+            <input type="text" id="clientLastname" name="clientLastname" required <?php 
+            if(isset($clientLastname)){echo "value='$clientLastname'";}  ?>>
 
             <label for="clientEmail">Email <span class="required">*</span></label>
-            <input type="email" id="clientEmail" name="clientEmail">
-            <p id="password-requierements">Passwords must be at least 8 characters and contain at least 1 number, 1 cpital letter and 1 special character</p>
+            <input type="email" id="clientEmail" name="clientEmail" required <?php 
+            if(isset($clientEmail)){echo "value='$clientEmail'";}  ?>>
+            <label id="password-requierements">Passwords must be at least 8 characters and contain at least 1 number, 1 cpital letter and 1 special character</label>
             <label for="clientPassword">Password <span class="required">*</span></label>
-            <input type="password" id="clientPassword" name="clientPassword">
+            <input type="password" id="clientPassword" name="clientPassword" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"> 
             <button type="button" id="showPassword">Show Password</button>
             <?php
             if (isset($_POST['submit'])) {

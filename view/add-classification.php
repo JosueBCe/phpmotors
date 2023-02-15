@@ -29,9 +29,12 @@
     }
     ?>
     <form action="/phpmotors/vehicles/index.php" method="post">
-      <label for="classificationName">Classification Name </label>
-      <input type="text" id="classificationName" name="classificationName">
-      <br>
+    <label for="classificationName">Classification Name <span class="required">*</span></label>
+    <input type="text" name="classificationName" id="classificationName" required maxlength="30" 
+    oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"> 
+    <?php if(isset($classificationName)){echo "value='$classificationName'";}   ?>>
+    <label for="classificationName">Please limit your input to 30 characters or less.</label>
+   <br>
       <input class="sign-in-up-btn" type="submit" value="Add Classification">
        <input type="hidden" name="action" value="register-classification">
     </form>

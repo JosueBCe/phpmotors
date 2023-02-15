@@ -38,26 +38,29 @@
             // require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/nav.php'; 
             echo $classificationOptions;
             ?>
-            <label for="invMake">Make <span class="required">*</span></label>
-            <input type="text" name="invMake" id="invMake">
+                <label for="invMake">Make <span class="required">*</span></label>
+                <input type="text" name="invMake" id="invMake" required <?php if(isset($invMake)){echo "value='$invMake'";}  ?>>
 
-            <label for="invModel">Model <span class="required">*</span></label>
-            <input type="text" id="invModel" name="invModel">
+                <label for="invModel">Model <span class="required">*</span></label>
+                <input type="text" name="invModel" id="invModel" required <?php if(isset($invModel)){echo "value='$invModel'";}  ?>>
 
-            <label for="invDescription">Description <span class="required">*</span></label>
-            <input type="text" id="invDescription" name="invDescription">
+                <label for="invDescription">Description <span class="required">*</span></label>
+                <textarea name="invDescription" id="invDescription" required><?php if(isset($invDescription)){echo "$invDescription";} ?></textarea>
 
-            <label for="invImage">invImage <span class="required">*</span></label>
-            <input type="text" id="invImage" name="invImage">
-            <label for="invThumbnail">Thumbnail <span class="required">*</span></label>
-            <input type="text" id="invThumbnail" name="invThumbnail">
+                <label for="invImage">Image <span class="required">*</span></label>
+                <input type="text" name="invImage" id="invImage" required <?php if(isset($invImage)){echo "value='$invImage'";}  ?>>
 
-            <label for="invPrice">Price <span class="required">*</span></label>
-            <input type="number" id="invPrice" name="invPrice">
-            <label for="invStock">Stock <span class="required">*</span></label>
-            <input type="number" id="invStock" name="invStock">
-            <label for="invColor">Color <span class="required">*</span></label>
-            <input type="text" id="invColor" name="invColor">
+                <label for="invThumbnail">Thumbnail <span class="required">*</span></label>
+                <input type="text" name="invThumbnail" id="invThumbnail" required <?php if(isset($invThumbnail)){echo "value='$invThumbnail'";}  ?>>
+
+                <label for="invPrice">Price <span class="required">*</span></label>
+                <input type="number" name="invPrice" id="invPrice" required <?php if(isset($invPrice)){echo "value='$invPrice'";}  ?>>
+
+                <label for="invStock">Stock <span class="required">*</span></label>
+                <input type="number" name="invStock" id="invStock" required <?php if(isset($invStock)){echo "value='$invStock'";}  ?>>
+
+                <label for="invColor">Color <span class="required">*</span></label>
+                <input type="text" name="invColor" id="invColor" required <?php if(isset($invColor)){echo "value='$invColor'";}  ?>>
             <br>
             <input class="sign-in-up-btn" type="submit" value="Add Vehicle">
             <input type="hidden" name="action" value="register-vehicle">
