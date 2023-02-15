@@ -1,4 +1,21 @@
-<!DOCTYPE html>
+<?php
+$classificationOptions  = '<label for="classification">Choose a Option:</label>
+<select name="classificationId" id="classification">';
+
+
+foreach ($classificationsIdAndClassification as $classification) {
+  $classificationOptions  .= "<option value='$classification[classificationId]'";
+  if(isset($classificationId)){
+    if("$classification[classificationId]" === $classificationId){
+        $classificationOptions  .= ' selected ';
+    }
+  }
+  
+  $classificationOptions .= ">$classification[classificationName]</option>";
+ }
+$classificationOptions .= '</select>';
+
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -57,8 +74,8 @@
                 <input type="number" name="invPrice" id="invPrice" required <?php if(isset($invPrice)){echo "value='$invPrice'";}  ?>>
 
                 <label for="invStock">Stock <span class="required">*</span></label>
-                <input type="number" name="invStock" id="invStock" required <?php if(isset($invStock)){echo "value='$invStock'";}  ?>>
-
+                <input type="number" name="invStock" id="invStock" required<?php if(isset($invStock)){echo "value='$invStock'";}  ?>>
+ 
                 <label for="invColor">Color <span class="required">*</span></label>
                 <input type="text" name="invColor" id="invColor" required <?php if(isset($invColor)){echo "value='$invColor'";}  ?>>
             <br>
