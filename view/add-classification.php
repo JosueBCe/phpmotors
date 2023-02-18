@@ -36,7 +36,7 @@
     <input type="text" name="classificationName" id="classificationName" required maxlength="30"     <?php if(isset($classificationName)){echo "value='$classificationName'";}   ?>> 
 
     <br>
-    <label for="classificationName">Please limit your input to 30 characters or less.</label>
+    <h2 >Please limit your input to 30 characters or less.</h2>
    <br>
       <input class="sign-in-up-btn" type="submit" value="Add Classification">
        <input type="hidden" name="action" value="register-classification">

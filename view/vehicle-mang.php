@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../css/base.css" media="screen">
   <link rel="stylesheet" href="../css/medium.css" media="screen">
   <link rel="stylesheet" href="../css/large.css" media="screen">
-  <title>Account Login | PHP Motors</title>
+  <title>Account Manager | PHP Motors</title>
 </head>
 
 <body>
