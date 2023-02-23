@@ -1,0 +1,2 @@
+connections connect with database
+functions are functions to be used through out the proyect, as the nav bar 

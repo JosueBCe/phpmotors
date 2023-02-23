@@ -38,7 +38,7 @@ switch ($action) {
     break;
 
   default:
-    include '../view/login.php';
+    include '../view/admin.php';
     break;
 
   case 'register':
@@ -49,6 +49,17 @@ switch ($action) {
     $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $clientEmail = checkEmail($clientEmail);
     $checkPassword = checkPassword($clientPassword);
+
+    // Checking if email already exists
+    $repeteadEmail =  checkExisitingEmail($clientEmail);
+
+    if ($repeteadEmail) {
+      $message = '<p class="notice">That email address already exists. Do you want to login instead?</p>';
+      include '../view/login.php';
+      exit;
+    }
+
+
 
     // Check for missing data
     if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($checkPassword)) {
@@ -65,6 +76,9 @@ switch ($action) {
 
     // Check and report the result
     if ($regOutcome === 1) {
+      //        cookies name, cookies value, time of life, where it would be avavailable (the entire website because is in the root).
+      setcookie("firstname", $clientFirstname, strtotime("+1 year"), "/");
+
       $message = "<p>Thanks for registering $clientFirstname. Please use your email and password to login.</p>";
       include '../view/login.php';
       exit;

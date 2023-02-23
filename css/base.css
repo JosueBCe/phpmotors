@@ -22,6 +22,7 @@ body {
 
 #logo {
     margin: .3rem 0;
+    width: 80%;
 }
 
 header,
@@ -241,3 +242,10 @@ input:required:invalid, input:focus:invalid {
     background-position: right top;
     background-repeat: no-repeat;
     }
+
+#welcome-message {
+    color: var(--blue-color);
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: -20px;
+}
