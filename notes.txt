@@ -1,1 +1,8 @@
 I have 2 branches, the main for the notebook and the main-computer for my computer, because their paths are different. 
+
+
+vehicles and accounts controller controls what happen when it's access to that level of the website 
+
+http://localhost/phpmotors/vehicles/
+
+http://localhost/phpmotors/accounts/
