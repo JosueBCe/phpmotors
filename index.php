@@ -10,7 +10,7 @@ require_once 'library/connections.php';
 require_once 'model/main-model.php';
 require_once 'library/functions.php';
 
-
+session_start();
 
 // Get the array of classifications
 $carclassifications = getClassifications();
@@ -19,16 +19,13 @@ $carclassifications = getClassifications();
 $navList = navBar($carclassifications);
 
 
+
 $action = filter_input(INPUT_POST, 'action');
  if ($action == NULL){
   $action = filter_input(INPUT_GET, 'action');
  } 
 
 
- // Check if the firstname cookie exists, get its value
-if(isset($_COOKIE['firstname'])){
-  $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
- }
 
  switch ($action){
  case 'template':
@@ -43,9 +40,16 @@ if(isset($_COOKIE['firstname'])){
     
 
  default:
+ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true){
+  session_destroy();
+  setcookie('firstname', null, -1, '/');
+
+}
   include './view/home.php';
   break;
 }
+
+
 
 
 

@@ -1,11 +1,13 @@
 <?php
-if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
+if (!isset($_SESSION['loggedin'])) {
   header('Location: /phpmotors/index.php');
   exit();
 }
 
 ?><!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
+      
+       
 
 <head>
   <meta charset="UTF-8">
@@ -28,25 +30,18 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
     ?>
   </nav>
   <main class="main-form">
-    <h1>Add Car Classification</h1>
+    <h1> <?php
+    if (isset($currentUser)) {
+      echo $currentUser;
+    }
+    ?></h1>
+    <h2>You are logged in.</h2>
     <?php
     if (isset($message)) {
       echo $message;
     }
     ?>
-    <!-- Use if necessary: 
-        oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-       -->
-    <form action="/phpmotors/vehicles/index.php" method="post">
-    <label for="classificationName">Classification Name <span class="required">*</span></label>
-    <input type="text" name="classificationName" id="classificationName" required maxlength="30"     <?php if(isset($classificationName)){echo "value='$classificationName'";}   ?>> 
 
-    <br>
-    <h2 >Please limit your input to 30 characters or less.</h2>
-   <br>
-      <input class="sign-in-up-btn" type="submit" value="Add Classification">
-       <input type="hidden" name="action" value="register-classification">
-    </form>
   </main>
   <footer>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>

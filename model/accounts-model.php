@@ -52,5 +52,14 @@ function checkExisitingEmail($clientEmail) {
     }
    }
 
+function checkIfClient($clientEmail){
+    // Query the database to check if user exists and password is correct
+      // (Assuming you have already established a database connection)
+      $db =  phpmotorsConnect();
+      $stmt =  $db ->prepare("SELECT * FROM clients WHERE clientEmail = ?");
+      $stmt->execute([$clientEmail]);
+      $user = $stmt->fetch();
+      return $user;
+}
 
 ?>

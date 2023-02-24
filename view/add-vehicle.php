@@ -1,4 +1,10 @@
 <?php
+if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
+    header('Location: /phpmotors/index.php');
+    exit();
+  }
+
+
 $classificationOptions  = '<label for="classification">Choose a Option:</label>
 <select name="classificationId" id="classification">';
 
@@ -14,6 +20,7 @@ foreach ($classificationsIdAndClassification as $classification) {
   $classificationOptions .= ">$classification[classificationName]</option>";
  }
 $classificationOptions .= '</select>';
+
 
 ?><!DOCTYPE html>
 <html lang="en">

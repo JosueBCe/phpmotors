@@ -16,5 +16,9 @@
             margin: 1rem 2rem;
             width: 100%;
         }
-        
+     
+        .account-link {
+            text-decoration: none;
+            color: black;
+        }
     }

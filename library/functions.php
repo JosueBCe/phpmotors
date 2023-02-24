@@ -15,12 +15,15 @@ function checkPassword($clientPassword){
 
 function navBar($carclassifications){
 // Build a navigation bar using the $classifications array
-$nav = '<ul class="nav-list">';
-$nav .= "<li><a href='/phpmotors/index.php' title='View the PHP Motors home page'>Home</a></li>";
+$nav = '<div class="nav-list" id="nav-bar">';
+$nav .= "<a href='/phpmotors/index.php' title='View the PHP Motors home page'>Home</a>";
 foreach ($carclassifications as $classification) {
-  $nav .= "<li><a href='/phpmotors/index.php?action=" . urlencode($classification['classificationName']) . "' title='View our $classification[classificationName] product line'>$classification[classificationName]</a></li>";
+  $nav .= "<a href='/phpmotors/index.php?action=" . urlencode($classification['classificationName']) . "' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
 }
-$nav .= '</ul>';
+$nav .= " <a class='icon' onclick='displayNav()'>
+<img src='/phpmotors/images/nav-icon.png' alt='icon'>
+</a>
+</div>";
 return $nav;
 }
 

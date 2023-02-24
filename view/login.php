@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php if (isset($_SESSION['loggedin'])) {
+    header('Location: /phpmotors/accounts/index.php?action=admin');
+    exit();
+  }
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>

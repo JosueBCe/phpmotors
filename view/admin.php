@@ -1,5 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+
+if (!isset($_SESSION['loggedin'])) {
+  header('Location: /phpmotors/index.php');
+  exit();
+}
+if ( $_SESSION['clientLevel'] < 3) {
+  header('Location: /phpmotors/view/client-view.php');
+  exit();
+} 
+
+?><!DOCTYPE html>
+<html lang="en"> 
+      
+       
 
 <head>
   <meta charset="UTF-8">
@@ -23,6 +36,7 @@
   </nav>
   <main class="main-form">
     <h1>Admin User</h1>
+    <h2>You are logged in.</h2>
     <?php
     if (isset($message)) {
       echo $message;
@@ -30,7 +44,7 @@
     ?>
     <h2>Inventory Management</h2>
     <h3>Use this link to manage the inventory.</h3>
-    <a href="/phpmotors/vehicles/index.php">Vehicle Management</a></p>
+   <p><a href="/phpmotors/vehicles/index.php">Vehicle Management</a></p>
   </main>
   <footer>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
