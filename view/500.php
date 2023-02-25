@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/phpmotors/css/base.css" media="screen">
   <link rel="stylesheet" href="/phpmotors/css/medium.css" media="screen">
   <link rel="stylesheet" href="/phpmotors/css/large.css" media="screen">
+  <script src="/phpmotors/library/responsive-nav.js"></script>
   <title>500 Error || Server Error</title>
 </head>
 

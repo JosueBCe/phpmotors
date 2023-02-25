@@ -21,6 +21,7 @@ if ( $_SESSION['clientLevel'] < 3) {
   <link rel="stylesheet" href="../css/base.css" media="screen">
   <link rel="stylesheet" href="../css/medium.css" media="screen">
   <link rel="stylesheet" href="../css/large.css" media="screen">
+      <script src="/phpmotors/library/responsive-nav.js"></script>
   <title>Account Login | PHP Motors</title>
 </head>
 

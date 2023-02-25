@@ -14,6 +14,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
   <link rel="stylesheet" href="../css/base.css" media="screen">
   <link rel="stylesheet" href="../css/medium.css" media="screen">
   <link rel="stylesheet" href="../css/large.css" media="screen">
+  <script src="/phpmotors/library/responsive-nav.js"></script>
+
   <title>Account Manager | PHP Motors</title>
 </head>
 
@@ -34,12 +36,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
       echo $message;
     }
     ?>
-     <div>
+    <div>
       <p class="my-account"><a href="index.php?action=add-classification">Add New Classification</a></p>
       <p class="my-account"><a href="index.php?action=add-vehicle">Add Vehicle</a></p>
-    
+
     </div>
-   
+
   </main>
   <footer>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
