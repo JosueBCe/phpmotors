@@ -5,22 +5,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
 }
 
 
-// $classificationOptions  = '<label for="classification">Choose a Option:</label>
-// <select name="classificationId" id="classification">';
-
-
-// foreach ($classificationsIdAndClassification as $classification) {
-//   $classificationOptions  .= "<option value='$classification[classificationId]'";
-//   if(isset($classificationId)){
-//     if("$classification[classificationId]" === $classificationId){
-//         $classificationOptions  .= ' selected ';
-//     }
-//   }
-
-//   $classificationOptions .= ">$classification[classificationName]</option>";
-//  }
-// $classificationOptions .= '</select>';
-
 // Build the classifications option list
 $classifList = '<select name="classificationId" id="classificationId">';
 $classifList .= "<option>Choose a Car Classification</option>";
