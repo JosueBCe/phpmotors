@@ -28,7 +28,9 @@ return $nav;
 }
 
 function buildClassificationList($classifications){ 
-  $classificationList = '<select name="classificationId" id="classificationList">'; 
+  $classificationList = ' <br/>
+  <label for="classificationList">Choose a classification to see those vehicles</label> <br/> <br/>
+  <select name="classificationId" id="classificationList">'; 
   $classificationList .= "<option>Choose a Classification</option>"; 
   foreach ($classifications as $classification) { 
   $classificationList .= "<option value='$classification[classificationId]'>$classification[classificationName]</option>"; 

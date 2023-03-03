@@ -6,7 +6,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
 
 
 // Build the classifications option list
-$classifList = '<select name="classificationId" id="classificationId">';
+$classifList = '<label for="classificationId">Choose a Option:</label> 
+<br/><br/>
+<select name="classificationId" id="classificationId">';
 $classifList .= "<option>Choose a Car Classification</option>";
 foreach ($classificationsIdAndClassification as $classification) {
     $classifList .= "<option value='$classification[classificationId]'";

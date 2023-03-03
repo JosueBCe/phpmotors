@@ -171,7 +171,7 @@ switch ($action) {
       empty($invStock) || empty($invColor) || empty($classificationId)
     ) {
       $message = '<p>Please provide all the required information to register a new vehicle.</p>';
-      include '../view/add-vehicle.php';
+      include '../view/vehicle-update.php';
       exit;
     }
 

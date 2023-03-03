@@ -7,7 +7,11 @@
 
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
-  if(isset($_COOKIE['firstname'])){
+  if(isset($_SESSION['clientFirstname'])){
+  $cookieFirstname = $_SESSION['clientFirstname'];
+  echo  "<a href='/phpmotors/accounts/index.php?action=admin' class='account-link'>$cookieFirstname </a> || <a href='/phpmotors/accounts/index.php?action=Logout' class='account-link'>Logout </a>";
+}
+  elseif(isset($_COOKIE['firstname'])){
     $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     echo  "<a href='/phpmotors/accounts/index.php?action=admin' class='account-link'>$cookieFirstname </a> || <a href='/phpmotors/accounts/index.php?action=Logout' class='account-link'>Logout </a>";
 } 

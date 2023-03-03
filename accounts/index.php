@@ -114,6 +114,7 @@ switch ($action) {
       $clientLastname = $user['clientLastname'];
       $clientEmail = $user['clientEmail'];
       $clientLevel = $user['clientLevel'];
+      $clientId = $user['clientId'];
 
       // Set $_SESSION['loggedin'] to true if login credentials are correct
       $_SESSION['loggedin'] = true;
@@ -121,7 +122,7 @@ switch ($action) {
       $_SESSION['clientLastname'] = $clientLastname;
       $_SESSION['clientEmail'] = $clientEmail;
       $_SESSION['clientLevel'] = $clientLevel;
-
+      $_SESSION['clientId'] = $clientId;
 
       setcookie("firstname", $clientFirstname, strtotime("+1 year"), "/");
       setcookie('mycookie', 'cookievalue', time() + 3600 * 24, '/');
@@ -131,7 +132,7 @@ switch ($action) {
         // $clientLastname = filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // $clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
 
-        $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']} ";
+        $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']} {$_SESSION['clientId']} ";
         $message = " 
           <ul>
         <li>First name: $clientFirstname</li>
@@ -148,7 +149,6 @@ switch ($action) {
       $message = '<p>The password or the email is not correct</p>';
       include '../view/login.php';
       exit;
-    
     }
     break;
     // default:
@@ -190,10 +190,13 @@ switch ($action) {
     exit;
     break;
   case "admin":
-    $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']} ";
+
+    $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']} {$_SESSION['clientId']}   ";
     $clientFirstname  = $_SESSION['clientFirstname'];
     $clientLastname  = $_SESSION['clientLastname'];
     $clientEmail  = $_SESSION['clientEmail'];
+
+
     $message = " 
          <ul>
        <li>First name: $clientFirstname</li>
@@ -201,13 +204,71 @@ switch ($action) {
        <li>Email: $clientEmail </li>
        </ul>";
 
-       if ( $_SESSION['clientLevel'] > 1 ) {
-          include '../view/admin.php';
-        exit();
-      } else {
-        include '../view/client-view.php';
+    if ($_SESSION['clientLevel'] > 1) {
+      include '../view/admin.php';
+      exit();
+    } else {
+      include '../view/client-view.php';
     }
 
+
+    break;
+
+  case "user-update":
+    $userId = $_SESSION['clientId'];
+    $userInfo = getUserInfo($userId);
     
+    include '../view/user-update.php';
+    break;
+  case 'updateUser':
+
+    $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
+    $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
+    $checkPassword = checkPassword($clientPassword);
+    $clientEmail = checkEmail($clientEmail);
+
+
+        
+    // Check for missing data
+    if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($checkPassword)) {
+      $message = '<p>Please provide information for all empty form fields.</p>';
+      include '../view/user-update.php';
+      exit;
+    }
+
+    // Hash the checked password
+    $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
+   
+    // Send the data to the model
+    $updateResult = updateUser($clientFirstname, $clientLastname, $clientEmail, $hashedPassword, $clientId);
+
+    //Check and report the result
+    if ($updateResult === 1) {
+    
+      if (isset($_SESSION['form_data'])) {
+        $form_data = $_SESSION['form_data'];
+        unset($_SESSION['form_data']);
+      } else {
+        $form_data = array();
+      }
+
+      $message = "<p> <strong>The $clientFirstname was updated successfully</strong></p>";
+      $_SESSION['message'] = $message;
+      $_SESSION['clientFirstname'] = $clientFirstname;
+      $_SESSION['clientLastname'] = $clientLastname;
+
+      $_SESSION['updated'] = true;
+      header('location: /phpmotors/accounts/index.php?action=admin');
+      exit;
+    } else {
+ 
+      $message =
+        "<p>Sorry, but the user information updating failed. Please try again.</p>";
+      include '../view/user-update.php';
+      exit;
+    }
     break;
 }
