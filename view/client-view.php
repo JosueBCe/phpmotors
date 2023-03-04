@@ -42,6 +42,12 @@ if (!isset($_SESSION['loggedin'])) {
       echo $message;
     }
     ?>
+     <h3>Account Management</h3>
+    <br>
+    <p>Use this link to Update Account Information.</p>
+    <br>
+    <p><a href="/phpmotors/accounts/index.php?action=user-update">Update Account Information</a></p>
+    <br>
 
   </main>
   <footer>

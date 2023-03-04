@@ -132,7 +132,7 @@ switch ($action) {
         // $clientLastname = filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // $clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
 
-        $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']} {$_SESSION['clientId']} ";
+        $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']}";
         $message = " 
           <ul>
         <li>First name: $clientFirstname</li>
@@ -191,7 +191,7 @@ switch ($action) {
     break;
   case "admin":
 
-    $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']} {$_SESSION['clientId']}   ";
+    $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']}  ";
     $clientFirstname  = $_SESSION['clientFirstname'];
     $clientLastname  = $_SESSION['clientLastname'];
     $clientEmail  = $_SESSION['clientEmail'];
@@ -225,25 +225,28 @@ switch ($action) {
     $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
-    $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
-    $checkPassword = checkPassword($clientPassword);
     $clientEmail = checkEmail($clientEmail);
 
+    $repeteadEmail =  checkExisitingEmail($clientEmail);
+    
+    if ($repeteadEmail) {
+      $message = "<p class='notice'>That email address already exists. Please Choose another Email</p>";
+      include '../view/user-update.php';
+      exit;
+    }
 
-        
+
     // Check for missing data
-    if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($checkPassword)) {
+    if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail)) {
       $message = '<p>Please provide information for all empty form fields.</p>';
       include '../view/user-update.php';
       exit;
     }
 
-    // Hash the checked password
-    $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
    
     // Send the data to the model
-    $updateResult = updateUser($clientFirstname, $clientLastname, $clientEmail, $hashedPassword, $clientId);
+    $updateResult = updateUser($clientFirstname, $clientLastname, $clientEmail, $clientId);
 
     //Check and report the result
     if ($updateResult === 1) {
@@ -259,6 +262,7 @@ switch ($action) {
       $_SESSION['message'] = $message;
       $_SESSION['clientFirstname'] = $clientFirstname;
       $_SESSION['clientLastname'] = $clientLastname;
+      $_SESSION['clientEmail'] = $clientEmail;
 
       $_SESSION['updated'] = true;
       header('location: /phpmotors/accounts/index.php?action=admin');
@@ -271,4 +275,46 @@ switch ($action) {
       exit;
     }
     break;
+    case 'updateUserPassword':
+      $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+      $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
+      $checkPassword = checkPassword($clientPassword);
+
+      // Check for missing data
+      if (empty($checkPassword)) {
+        $messagePassword = '<p>Please make sure your Password matches the desired pattern.</p>';
+        include '../view/user-update.php';
+        exit;
+      }
+  
+      // Hash the checked password
+      $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
+     
+      // Send the data to the model
+      $updateResult = updateUserPassword($hashedPassword, $clientId);
+  
+      //Check and report the result
+      if ($updateResult === 1) {
+      
+        if (isset($_SESSION['form_data'])) {
+          $form_data = $_SESSION['form_data'];
+          unset($_SESSION['form_data']);
+        } else {
+          $form_data = array();
+        }
+  
+        $message = "<p> <u><strong>The Password was updated successfully</strong></u></p>";
+      $_SESSION['message'] = $message;
+
+        $_SESSION['updated'] = true;
+        header('location: /phpmotors/accounts/index.php?action=admin');
+        exit;
+      } else {
+   
+        $message =
+          "<p>Sorry, but the user password information updating failed. Please try again.</p>";
+        include '../view/user-update.php';
+        exit;
+      }
+      break;
 }

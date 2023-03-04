@@ -1,9 +1,13 @@
 <?php
-if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
+if (!isset($_SESSION['loggedin'])) {
     header('Location: /phpmotors/index.php');
     exit();
 }
-
+/* if (isset($userInfo['clientFirstname']) && isset($userInfo['clientLastname'])) {
+    echo "Modify $userInfo[clientFirstname] $userInfo[clientLastname]";
+} elseif (isset($clientFirstname) && isset($clientLastname)) {
+    echo "{$_SESSION['clientFirstname']} {$_SESSION['clientLastname']}";
+} */
 
 ?>
 <!DOCTYPE html>
@@ -37,11 +41,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
         ?>
     </nav>
     <main class="main-form">
-        <h1><?php if (isset($userInfo['clientFirstname']) && isset($userInfo['clientLastname'])) {
-                echo "Modify $userInfo[clientFirstname] $userInfo[clientLastname]";
-            } elseif (isset($clientFirstname) && isset($clientLastname)) {
-                echo "{$_SESSION['clientFirstname']} {$_SESSION['clientLastname']}";
-            } ?></h1>
+        <h1>Update Account</h1>
 
         <?php
         if (isset($message)) {
@@ -59,29 +59,65 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
                                                                             echo "value='$clientFirstname'";
                                                                         } elseif (isset($userInfo['clientFirstname'])) {
                                                                             echo "value='$userInfo[clientFirstname]'";
-                                                                        } ?>>
+                                                                        } elseif(!isset($userInfo['clientFirstname']) && !isset($clientFirstname))
+                                                                        {
+                                                                         echo "value='{$_SESSION['clientFirstname']}'";   
+                                                                        }
+                                                                        
+                                                                        
+                                                                        ?>>
             <label for="clientLastname">Last Name <span class="required">*</span></label>
             <input type="text" id="clientLastname" name="clientLastname" required <?php if (isset($clientLastname)) {
                                                                             echo "value='$clientLastname'";
                                                                         } elseif (isset($userInfo['clientLastname'])) {
                                                                             echo "value='$userInfo[clientLastname]'";
+                                                                        } elseif(!isset($userInfo['clientLastname']) && !isset($clientFirstname))
+                                                                        {
+                                                                         echo "value='{$_SESSION['clientLastname']}'";   
                                                                         } ?>>
             <label for="clientEmail">Email <span class="required">*</span></label>
             <input type="email" id="clientEmail" name="clientEmail" required <?php if (isset($clientEmail)) {
                                                                             echo "value='$clientEmail'";
                                                                         } elseif (isset($userInfo['clientEmail'])) {
                                                                             echo "value='$userInfo[clientEmail]'";
-                                                                        } ?>>
-           
-            
+                                                                        } elseif(!isset($userInfo['clientEmail']) && !isset($clientFirstname))
+                                                                        {
+                                                                         echo "value='{$_SESSION['clientEmail']}'";   
+                                                                        }?>>
+           <br>
+            <input name="submit" class="sign-in-up-btn" type="submit" value="Update Info">
+            <input type="hidden" name="action" value="updateUser">
+            <input type="hidden" name="clientId" value="
+                <?php if (isset($userInfo['clientId'])) {
+                    echo $userInfo['clientId'];
+                } elseif (isset($clientId)) {
+                    echo $clientId;
+                } ?>
+                ">
+        </form>
+
+        <h3>Update Password</h3>
+        
+        <?php
+        if (isset($messagePassword)) {
+            echo $messagePassword;
+        }
+        ?>
+        <form action="/phpmotors/accounts/index.php" method="post">
         <p  id="password-requierements">Passwords must be at least 8 characters and contain at least 1 number, 1 cpital letter and 1 special character</p>
             
             <label for="clientPassword">Password <span class="required">*</span></label>
             <input type="password" id="clientPassword" name="clientPassword" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"> 
-
+            <button type="button" id="showPassword">Show Password</button>
+            <?php
+            if (isset($_POST['submit']) && isset($_POST['password']) ) {
+                $password = $_POST['password'];
+                echo "The password you entered is: " . $password;
+            }
+            ?>
             <br>
-            <input name="submit" class="sign-in-up-btn" type="submit" value="Update">
-            <input type="hidden" name="action" value="updateUser">
+            <input name="submit" class="sign-in-up-btn" type="submit" value="Update Password">
+            <input type="hidden" name="action" value="updateUserPassword">
             <input type="hidden" name="clientId" value="
                 <?php if (isset($userInfo['clientId'])) {
                     echo $userInfo['clientId'];
@@ -97,6 +133,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
     <footer>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
     </footer>
+        <script src="../library/show_password.js"></script>
 </body>
 
 </html>
