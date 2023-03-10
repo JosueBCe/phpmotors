@@ -16,9 +16,11 @@ function checkPassword($clientPassword){
 function navBar($carclassifications){
 // Build a navigation bar using the $classifications array
 $nav = '<div class="nav-list" id="nav-bar">';
-$nav .= "<a href='/phpmotors/index.php' title='View the PHP Motors home page'>Home</a>";
+$nav .= "<a href='/phpmotors/' title='View the PHP Motors home page'>Home</a>";
 foreach ($carclassifications as $classification) {
-  $nav .= "<a href='/phpmotors/index.php?action=" . urlencode($classification['classificationName']) . "' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
+  $nav .= "<a href='/phpmotors/vehicles/?action=classification&classificationName="
+  .urlencode($classification['classificationName']).
+  "' title='View our $classification[classificationName] lineup of vehicles'>$classification[classificationName]</a>";
 }
 $nav .= " <a class='icon' onclick='displayNav()'>
 <img src='/phpmotors/images/nav-icon.png' alt='icon'>
@@ -39,4 +41,19 @@ function buildClassificationList($classifications){
   return $classificationList; 
  }
  
+
+
+ function buildVehiclesDisplay($vehicles){
+  $dv = '<ul id="inv-display">';
+  foreach ($vehicles as $vehicle) {
+   $dv .= '<li>';
+   $dv .= "<img src='$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
+   $dv .= '<hr>';
+   $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2>";
+   $dv .= "<span>$vehicle[invPrice]</span>";
+   $dv .= '</li>';
+  }
+  $dv .= '</ul>';
+  return $dv;
+ }
 ?>

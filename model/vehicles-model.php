@@ -115,5 +115,19 @@ function deleteVehicle($invId) {
     $stmt->closeCursor();
     return $rowsChanged;
    }
+// USE A SUBQUERY TO GET THE CLASSIFICATION BY NAME AND NOT BUT THE DEFAULT THAT IS AN ID.
+function getVehiclesByClassification($classificationName){
+    $db = phpmotorsConnect();
+    $sql = 'SELECT * FROM inventory WHERE classificationId IN (SELECT classificationId FROM carclassification WHERE classificationName = :classificationName)';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
+    $stmt->execute();
+    $vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $vehicles;
+   }
+
+
 
 ?>
+
