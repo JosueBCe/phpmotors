@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Arvo:ital@1&family=Roboto+Condensed&display=swap');
+
 :root {
     --gray-color: #bababa;
     --main-gray-color: #8d8d8d;
@@ -9,6 +10,16 @@
 }
 
 html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+html {
     background-size: 450px 450px;
     background-repeat: repeat;
     background-image: url('../images/site/checkerboard.jpg');
@@ -16,7 +27,7 @@ html {
 }
 
 body {
-    font-family:"Roboto Condensed" , "Arvo";
+    font-family: "Roboto Condensed", "Arvo";
     background-color: var(--white);
 }
 
@@ -50,12 +61,14 @@ nav {
     background-color: var(--dark-gray-color);
 
 }
+
 .account-link {
     text-decoration: none;
     color: black;
 }
+
 .my-account {
-    margin-right: .5rem; 
+    margin-right: .5rem;
 }
 
 .nav-list {
@@ -68,10 +81,10 @@ nav {
 .nav-list {
     overflow: hidden;
     background-color: #333;
-        justify-content: center;
-  }
-  
-  .nav-list a {
+    justify-content: center;
+}
+
+.nav-list a {
     float: left;
     display: block;
     color: #f2f2f2;
@@ -79,44 +92,52 @@ nav {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
-  }
-  
-  .nav-list a:hover {
+}
+
+.nav-list a:hover {
     background-color: #ddd;
     color: black;
-  }
-  
-  .nav-list a.active {
+}
+
+.nav-list a.active {
     background-color: #04AA6D;
     color: white;
-  }
-  
-  .nav-list .icon {
+}
+
+.nav-list .icon {
     display: none;
-  }
-  
-  @media screen and (max-width: 31rem) {
-    .nav-list a {display: none;}
+}
+
+@media screen and (max-width: 31rem) {
+    .nav-list a {
+        display: none;
+    }
+
     .nav-list a.icon {
-      float: right;
-      display: block;
+        float: right;
+        display: block;
     }
-  }
-  
-  @media screen and (max-width: 31rem) {
-    .nav-list.responsive {position: relative;
-        flex-direction: column;}
+}
+
+@media screen and (max-width: 31rem) {
+    .nav-list.responsive {
+        position: relative;
+        flex-direction: column;
+    }
+
     .nav-list.responsive .icon {
-      position: absolute;
-      right: 0;
-      top: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
     }
+
     .nav-list.responsive a {
-      float: none;
-      display: block;
-      text-align: left;
+        float: none;
+        display: block;
+        text-align: left;
     }
-  }
+}
+
 /* ================================================================ */
 
 
@@ -237,6 +258,7 @@ footer p {
     display: block;
     margin: 1rem;
 }
+
 form {
     display: inline-flex;
     flex-direction: column;
@@ -250,17 +272,18 @@ form input {
     box-shadow: 1px 0px 2px 0px var(--gray-color);
 }
 
-form label, #password-requierements{
+form label,
+#password-requierements {
     font-weight: bold;
-    font-size: 17px; 
+    font-size: 17px;
     margin-top: 0.7rem;
 
 }
 
 .required {
     color: rgb(129, 0, 0);
-  }
-  
+}
+
 
 .sign-in-up-btn {
     background-color: var(--blue-color);
@@ -277,7 +300,10 @@ form label, #password-requierements{
     color: white;
     padding: .5rem;
 }
-#classification, form input, #invDescription {
+
+#classification,
+form input,
+#invDescription {
     padding: 0.3rem;
     text-align: center;
     border: solid 2px var(--blue-color);
@@ -287,16 +313,18 @@ form label, #password-requierements{
 
 /* =================== FORM VALIDATION ====================== */
 
-input:required:invalid, input:focus:invalid {
+input:required:invalid,
+input:focus:invalid {
     background-image: url(/images/invalid.png);
     background-position: right top;
     background-repeat: no-repeat;
-   }
-    input:required:valid {
+}
+
+input:required:valid {
     background-image: url(/images/valid.png);
     background-position: right top;
     background-repeat: no-repeat;
-    }
+}
 
 #welcome-message {
     color: var(--blue-color);
@@ -309,3 +337,23 @@ input:required:invalid, input:focus:invalid {
     text-decoration: none;
     color: black;
 }
+
+/* ================ CLASSIFICATION PAGE ============================== */
+
+#inv-display{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+   }
+   
+   #inv-display li{
+    margin-bottom: .5em;
+    border: 1px #ccc solid;
+    list-style-type: none;
+    flex: 1 1 auto;
+   }
+   
+   #inv-display li img {
+       max-width: 100%;
+   }
