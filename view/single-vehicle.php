@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/phpmotors/css/large.css" media="screen">
   <script src="/phpmotors/library/responsive-nav.js"></script>
 
-  <title> <?php echo $classificationName ?> | PHP Motors</title>
+  <title><?php echo $invMake ?> | PHP Motors</title>
 </head>
 
 <body>
@@ -23,10 +23,8 @@
     ?>
   </nav>
   <main class="main-vehicle">
-    <div class="heading-1">
-    <h1><?php echo $classificationName ?> Vehicles</h1>
-    </div>
-    <div class="vehicle-list">   
+    <h1><?php echo $invMake ?></h1>
+    
     <?php if (isset($message)){
         echo $message;
     } ?>
@@ -34,7 +32,7 @@
         echo $vehicleDisplay;
     }
     ?> 
-    </div>
+    
   </main>
   <hr>
   <footer>

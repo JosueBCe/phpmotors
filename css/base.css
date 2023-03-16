@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Arvo:ital@1&family=Roboto+Condensed&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Sono&display=swap');
 :root {
     --gray-color: #bababa;
     --main-gray-color: #8d8d8d;
@@ -27,7 +26,7 @@ html {
 }
 
 body {
-    font-family: "Roboto Condensed", "Arvo";
+    font-family: "M PLUS Rounded 1c", "Sono";
     background-color: var(--white);
 }
 
@@ -123,6 +122,7 @@ nav {
     .nav-list.responsive {
         position: relative;
         flex-direction: column;
+        
     }
 
     .nav-list.responsive .icon {
@@ -134,7 +134,15 @@ nav {
     .nav-list.responsive a {
         float: none;
         display: block;
-        text-align: left;
+        text-align: center;
+        width:-webkit-fill-available;
+    }
+    .nav-list.responsive a:first-child {
+        margin-top: 3rem;
+    }
+    .nav-list.responsive a:hover {
+     background-color: var(--gray-color);
+
     }
 }
 
@@ -159,6 +167,9 @@ ul a:hover {
     color: black;
 
 }
+
+
+
 
 hr {
     border: solid 2px black;
@@ -347,13 +358,59 @@ input:required:valid {
     flex-direction: column;
    }
    
-   #inv-display li{
-    margin-bottom: .5em;
+   #inv-display li {
+    margin-bottom: 0.5em;
     border: 1px #ccc solid;
     list-style-type: none;
-    flex: 1 1 auto;
-   }
+    border-radius: 0.5rem;
+
+    text-align: center;
+    margin: 1rem;
+}
+
+#inv-display li:hover {
+    background-color: var(--main-gray-color);
+}
    
    #inv-display li img {
-       max-width: 100%;
+     
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+
+
    }
+   #inv-display a {
+    color: black;
+   }
+
+   .main-vehicle {
+    display: grid;
+    grid-template-rows: 70px 1fr;
+    grid-template-columns:1fr;
+
+   }
+   .vehicle-list {
+    grid-row: 2/2;
+   }
+   .vehicle-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.5rem;
+    margin-top: 1.5rem;
+    
+   }
+   .vehicle-details img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.2rem;
+
+    object-fit: cover;
+   }
+   .sub-div-2 *, .sub-div-1 * {
+    padding: 4px;
+}
+.sub-div-2 {
+    margin-top: 3rem;
+}

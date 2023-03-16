@@ -45,7 +45,7 @@
     .hero .buy {
         position: absolute;
         left: 0px;
-        top: 100px;
+        top: 130px;
     }
 
     .hero button {
@@ -89,5 +89,38 @@
 #welcome-message {
     font-size: 20px;
 }
+/* 
+======================== CLASSIFICATION VIEW ========================================= */
+#inv-display{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 324px);
+    justify-content: center; 
+}
     
+#inv-display li img {
+     
+    width: 100%;
+    height: 150px;
+    object-fit:cover;
+   }
+
+   .vehicle-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+   }
+
+   .vehicle-details img {
+    
+    height: 250px;
+
+   }
+   .sub-div-2 *, .sub-div-1 * {
+    padding: 8px 5px;
+   }
+    .sub-div-2 {
+        margin-top: 0rem;
+    }
+
+
 }

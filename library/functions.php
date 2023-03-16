@@ -16,7 +16,6 @@ function checkPassword($clientPassword){
 function navBar($carclassifications){
 // Build a navigation bar using the $classifications array
 $nav = '<div class="nav-list" id="nav-bar">';
-$nav .= "<a href='/phpmotors/' title='View the PHP Motors home page'>Home</a>";
 foreach ($carclassifications as $classification) {
   $nav .= "<a href='/phpmotors/vehicles/?action=classification&classificationName="
   .urlencode($classification['classificationName']).
@@ -46,14 +45,41 @@ function buildClassificationList($classifications){
  function buildVehiclesDisplay($vehicles){
   $dv = '<ul id="inv-display">';
   foreach ($vehicles as $vehicle) {
-   $dv .= '<li>';
-   $dv .= "<img src='$vehicle[invThumbnail]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'>";
+    $dv .= '<li>';
+   $dv .= "<a href='/phpmotors/vehicles/?action=single-vehicle&invId="
+   .urlencode($vehicle['invId']).
+   "' title='View our $vehicle[invMake] $vehicle[invModel]'>";
+ 
+   $dv .= "<img src='$vehicle[invThumbnail]' alt='$vehicle[invMake] $vehicle[invModel] picture of color $vehicle[invColor]'>";
    $dv .= '<hr>';
    $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2>";
-   $dv .= "<span>$vehicle[invPrice]</span>";
+   $dv .= "<span>$".number_format($vehicle['invPrice'], 2)."</span>";
+   $dv .= '</a>';
    $dv .= '</li>';
   }
   $dv .= '</ul>';
   return $dv;
  }
+ function buildVehicleDisplay($vehicle){
+
+   $dv = '<div class="vehicle-details">';
+   $dv .= "<div class='sub-div-1'>";
+   $dv .= "<img src='$vehicle[invThumbnail]' alt='$vehicle[invMake] $vehicle[invModel] picture of color $vehicle[invColor]'>";
+   $dv .= "<p><strong>Price:</strong> $" . number_format($vehicle['invPrice'], 2) . "</p>";
+   $dv .= '</div>';
+   $dv .= "<div class='sub-div-2'>";
+   $dv .= "<h2>$vehicle[invMake] $vehicle[invModel] </h2>";
+   $dv .= "<p><strong>Description:</strong> $vehicle[invDescription]</p>";
+
+   $dv .= "<p><strong>Stock:</strong> $vehicle[invStock]</p>";
+   $dv .= '</div>';
+   $dv .= '</div>';
+
+   return $dv;
+ 
+ 
+ 
+  }
+
+ 
 ?>

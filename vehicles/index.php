@@ -238,4 +238,17 @@ switch ($action) {
   
       include '../view/classification.php';
       break;
+      case 'single-vehicle':
+        $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_NUMBER_INT);
+        $vehicle = getVehicleById($invId)[0];
+        $invMake = $vehicle['invMake'] . " " .$vehicle['invModel'];
+        if(!count($vehicle)){
+         $message = "<p class='notice'>Sorry, no $classificationName could be found.</p>";
+        } else {
+          
+        $vehicleDisplay = buildVehicleDisplay($vehicle);
+        }
+    
+        include '../view/single-vehicle.php';
+        break;
 }
