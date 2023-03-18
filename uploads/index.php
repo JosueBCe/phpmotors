@@ -1,6 +1,6 @@
 <?php
 // "Image uploads controller".
-session_start();
+
 
 require_once '../library/connections.php';
 require_once '../model/main-model.php';
@@ -8,6 +8,7 @@ require_once '../model/vehicles-model.php';
 require_once '../model/uploads-model.php';
 require_once '../library/functions.php';
 
+session_start();
 
 // Get the array of classifications
 $classifications = getClassifications();
@@ -23,7 +24,8 @@ if ($action == NULL) {
 * Variables for use with the Image Upload Functionality
 * **************************************************** */
 // directory name where uploaded images are stored
-$image_dir = '/phpmotors/uploads/images';
+// $image_dir = '/phpmotors/uploads/images';
+$image_dir = '/phpmotors/images/vehicles';
 // The path is the full path from the server root
 $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;
 
@@ -112,6 +114,5 @@ switch ($action) {
         $prodSelect = buildVehiclesSelect($vehicles);
 
         include '../view/image-admin.php';
-        exit;
         break;
 }

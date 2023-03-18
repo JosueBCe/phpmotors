@@ -37,7 +37,7 @@
       </div>
 
       <div class="hero-image">
-        <img src="images/delorean.jpg" alt="Delorean Car">
+        <img src="./images/vehicles/delorean.jpg" alt="Delorean Car">
       </div>
 
     </div>

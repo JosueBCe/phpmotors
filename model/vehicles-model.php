@@ -116,16 +116,35 @@ function deleteVehicle($invId) {
     return $rowsChanged;
    }
 // USE A SUBQUERY TO GET THE CLASSIFICATION BY NAME AND NOT BUT THE DEFAULT THAT IS AN ID.
+// function getVehiclesByClassification($classificationName){
+//     $db = phpmotorsConnect();
+//     $sql = 'SELECT * FROM inventory WHERE classificationId IN (SELECT classificationId FROM carclassification WHERE classificationName = :classificationName)';
+//     $stmt = $db->prepare($sql);
+//     $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
+//     $stmt->execute();
+//     $vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//     $stmt->closeCursor();
+//     return $vehicles;
+//    }
+
 function getVehiclesByClassification($classificationName){
     $db = phpmotorsConnect();
-    $sql = 'SELECT * FROM inventory WHERE classificationId IN (SELECT classificationId FROM carclassification WHERE classificationName = :classificationName)';
+    $sql = 'SELECT inv.*, img.imgPath 
+            FROM inventory AS inv 
+            JOIN images AS img ON inv.invId = img.invId 
+            WHERE inv.classificationId IN (SELECT classificationId 
+                                           FROM carclassification 
+                                           WHERE classificationName = :classificationName) 
+            AND img.imgPath LIKE "%-tn%" 
+            AND img.imgPrimary = 1';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
     $stmt->execute();
     $vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
     return $vehicles;
-   }
+}
+
 
    function getVehicleById($invId){
     $db = phpmotorsConnect();

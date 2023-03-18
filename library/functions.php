@@ -55,7 +55,7 @@ function buildVehiclesDisplay($vehicles)
       . urlencode($vehicle['invId']) .
       "' title='View our $vehicle[invMake] $vehicle[invModel]'>";
 
-    $dv .= "<img src='$vehicle[invThumbnail]' alt='$vehicle[invMake] $vehicle[invModel] picture of color $vehicle[invColor]'>";
+    $dv .= "<img src='$vehicle[imgPath]' alt='$vehicle[invMake] $vehicle[invModel] picture of color $vehicle[invColor]'>";
     $dv .= '<hr>';
     $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2>";
     $dv .= "<span>$" . number_format($vehicle['invPrice'], 2) . "</span>";
