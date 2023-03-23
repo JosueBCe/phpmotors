@@ -369,11 +369,11 @@ input:required:valid {
 }
 
 #inv-display li:hover {
-    background-color: var(--main-gray-color);
+    background-color: var(--blue-light-color);
 }
    
    #inv-display li img {
-     
+     border-radius: .3rem;
     width: 100%;
     height: 150px;
     object-fit: cover;
@@ -393,18 +393,25 @@ input:required:valid {
    .vehicle-list {
     grid-row: 2/2;
    }
+
+
+
+   /* ============================= SINGLE VEHICLE ====================== */
    .vehicle-details {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0.5rem;
     margin-top: 1.5rem;
+    text-align: center;
     
    }
    .vehicle-details img {
     width: 100%;
     height: 100%;
     border-radius: 0.2rem;
+    border: solid 1px var(--blue-light-color);
+    padding: 0;
 
     object-fit: cover;
    }
@@ -413,4 +420,55 @@ input:required:valid {
 }
 .sub-div-2 {
     margin-top: 3rem;
+}
+
+#image-display {
+    padding: 0;
+}
+
+
+#image-display li img {
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+    margin-bottom: .5rem;
+    border-radius: 0.5rem;
+
+}
+#image-display li {
+    list-style: none;
+    text-align: center;
+    border: solid 1px var(--gray-color);
+    border-radius: 0.5rem;
+    margin: 1rem auto;
+    width: 90%;
+}
+#image-display a {
+    color: var(--blue-light-color);
+    background-color: var(--dark-gray-color);
+    padding: .5rem;
+}
+#image-display a:hover {
+    color: white;
+    background-color: var(--blue-color);
+    padding: .5rem;
+}
+
+
+.thumImages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
+    justify-content: center;
+    list-style: none;
+}
+
+.thumImages li img {
+    border: solid 1px var(--gray-color);
+    transition: transform 0.5s ease-in-out;
+    border-radius: .5rem;
+}
+
+.thumImages li img:hover {
+    transform: scale(1.4);
+
 }

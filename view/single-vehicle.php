@@ -25,13 +25,14 @@
   <main class="main-vehicle">
     <h1><?php echo $invMake ?></h1>
     
-    <?php if (isset($message)){
-        echo $message;
-    } ?>
+   
     <?php if (isset($vehicleDisplay)){
         echo $vehicleDisplay;
     }
     ?> 
+     <?php if (isset($extraImages)){
+        echo $extraImages;
+    } ?>
     
   </main>
   <hr>

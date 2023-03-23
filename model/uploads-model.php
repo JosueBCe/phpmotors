@@ -31,6 +31,7 @@ function storeImages($imgPath, $invId, $imgName, $imgPrimary)
     return $rowsChanged;
 }
 
+// Get Image Information from images table
 function getImages()
 {
     $db = phpmotorsConnect();
@@ -57,7 +58,8 @@ function deleteImage($imgId)
 
 
 // Check for an existing image
-function checkExistingImage($imgName){
+function checkExistingImage($imgName)
+{
     $db = phpmotorsConnect();
     $sql = "SELECT imgName FROM images WHERE imgName = :name";
     $stmt = $db->prepare($sql);
@@ -66,4 +68,4 @@ function checkExistingImage($imgName){
     $imageMatch = $stmt->fetch();
     $stmt->closeCursor();
     return $imageMatch;
-   }
+}

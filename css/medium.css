@@ -1,4 +1,3 @@
-
 @media (min-width: 32em) {
     body {
         border: solid 2px var(--blue-color);
@@ -17,7 +16,7 @@
     }
 
     .nav-list {
-            justify-content: left;
+        justify-content: left;
 
         font-size: 1rem;
 
@@ -28,11 +27,12 @@
 
 
 
-/* ================================================================ */
+    /* ================================================================ */
 
     li {
         padding: 1rem 0.7rem;
     }
+
     #logo {
         margin: .3rem 0;
         width: 100%;
@@ -70,7 +70,7 @@
     .hero .btn {
         position: initial;
     }
-    
+
 
     .reviews {
         grid-column: 2/3;
@@ -85,42 +85,51 @@
         display: block;
         margin: 2rem;
     }
-    
-#welcome-message {
-    font-size: 20px;
-}
-/* 
+
+    #welcome-message {
+        font-size: 20px;
+    }
+
+    /* 
 ======================== CLASSIFICATION VIEW ========================================= */
-#inv-display{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 324px);
-    justify-content: center; 
-}
-    
-#inv-display li img {
-     
-    width: 100%;
-    height: 150px;
-    object-fit:cover;
-   }
+    #inv-display,
+    #image-display{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 300px);
+        justify-content: center;
+    }
 
-   .vehicle-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-   }
+    #inv-display li img,
+    #image-display li img {
 
-   .vehicle-details img {
-    
-    height: 250px;
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
 
-   }
-   .sub-div-2 *, .sub-div-1 * {
-    padding: 8px 5px;
-   }
+
+    /* ====================== SINGLW VEHICLE =========================== */
+    .vehicle-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+
+    .vehicle-details img {
+
+        height: 250px;
+
+    }
+
+    .sub-div-2 *,
+    .sub-div-1 * {
+        padding: 8px 5px;
+    }
+
     .sub-div-2 {
         margin-top: 0rem;
     }
+
 
 
 }

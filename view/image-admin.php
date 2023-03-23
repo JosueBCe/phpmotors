@@ -4,8 +4,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
     exit();
 }
 
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -30,19 +29,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
         ?>
     </nav>
     <main class="main-form">
-        <h1>Add New Vehicle Image</h1>
+        <h1>Image Management</h1>
+
+        <h2>Add New Vehicle Image</h2>
         <?php
         if (isset($_SESSION['message'])) {
-            $message = $_SESSION['message'];
-        }
-        ?>
-        <?php
-        if (isset($message)) {
-            echo $message;
+            print_r($_SESSION['message']);
         } ?>
 
         <form action="/phpmotors/uploads/" method="post" enctype="multipart/form-data">
-            <label for="invItem">Vehicle</label>
+            <label id="invItem">Vehicle</label>
             <?php echo $prodSelect; ?>
             <fieldset>
                 <label>Is this the main image for the vehicle?</label>
@@ -51,15 +47,22 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['clientLevel'] < 2) {
                 <label for="priNo" class="pImage">No</label>
                 <input type="radio" name="imgPrimary" id="priNo" class="pImage" checked value="0">
             </fieldset>
-            <label>Upload Image:</label>
-            <input type="file" name="file1">
+            <label for="file1">Choose a file to upload:</label>
+            <input type="file" name="file1" id="file1" class="file1">
             <input type="submit" class="regbtn" value="Upload">
             <input type="hidden" name="action" value="upload">
         </form>
+        <hr>
+        <h2>Existing Images</h2>
+        <p class="notice">If deleting an image, delete the thumbnail too and vice versa.</p>
+        <?php
+        if (isset($imageDisplay)) {
+            echo $imageDisplay;
+        } ?>
     </main>
     <footer>
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
     </footer>
 </body>
-</html>
-<?php unset($_SESSION['message']); ?>
+
+</html><?php unset($_SESSION['message']); ?>

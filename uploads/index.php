@@ -114,5 +114,6 @@ switch ($action) {
         $prodSelect = buildVehiclesSelect($vehicles);
 
         include '../view/image-admin.php';
+        exit;
         break;
 }
