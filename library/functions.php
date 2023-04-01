@@ -90,7 +90,7 @@ function buildExtraImagesDisplay($vehicleImages)
 
   $dv = "<ul  class='thumImages'>";
   foreach ($vehicleImages as $vehicle) {
-  $dv .= "<li><img src='$vehicle[imgPath]' alt='$vehicle[invMake] $vehicle[invModel] picture'></li>";
+    $dv .= "<li><img src='$vehicle[imgPath]' alt='$vehicle[invMake] $vehicle[invModel] picture'></li>";
   }
   $dv .= '</ul>';
 
@@ -101,8 +101,8 @@ function buildExtraImagesDisplay($vehicleImages)
 
 
 /* * ********************************
-*  Functions for working with images
-* ********************************* */
+ *  Functions for working with images
+ * ********************************* */
 
 // Adds "-tn" designation to file name
 function makeThumbnailName($image)
@@ -265,3 +265,106 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height)
   // Free any memory associated with the old image
   imagedestroy($old_image);
 } // ends resizeImage function
+
+
+
+/* REVIEWS FUNCTIONALITY */
+
+function buildInventoryList($data)
+{
+  $inventoryDisplay = '<table>';
+  // Set up the table labels
+  $inventoryDisplay .= '<thead>';
+  $inventoryDisplay .= '<tr><th>Vehicle Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+  $inventoryDisplay .= '</thead>';
+
+  // Set up the table body
+  $inventoryDisplay .= '<tbody>';
+  // Iterate over all vehicles in the array and put each in a row
+  foreach ($data as $vehicle) {
+    $inventoryDisplay .= '<tr>';
+    $inventoryDisplay .= '<td>' . $vehicle['invMake'] . ' ' . $vehicle['invModel'] . '</td>';
+    $inventoryDisplay .= '<td><a href="/phpmotors/vehicles?action=mod&invId=' . $vehicle['invId'] . '" title="Click to modify">Modify</a></td>';
+    $inventoryDisplay .= '<td><a href="/phpmotors/vehicles?action=del&invId=' . $vehicle['invId'] . '" title="Click to delete">Delete</a></td>';
+    $inventoryDisplay .= '</tr>';
+  }
+  $inventoryDisplay .= '</tbody>';
+  $inventoryDisplay .= '</table>';
+
+  // Return the HTML embedded with the information
+  return $inventoryDisplay;
+}
+
+
+
+function addReviewDisplays($vehicle)
+{
+  $firstNameInitial = substr($_SESSION['clientFirstname'], 0, 1);
+  $lastName = ucfirst($_SESSION['clientLastname']);
+
+  $html = "<h2>Review the $vehicle[invMake] $vehicle[invModel]</h2>";
+  $html .= '<form action="/phpmotors/reviews/index.php" method="post">';
+  $html .= '<label for="screenName">Screen Name <span class="required">*</span></label>';
+  $html .= '<input type="text" name="screenName" id="screenName" required maxlength="30"';
+  if (isset($firstNameInitial) && isset($lastName)) {
+    $html .= " value='$firstNameInitial$lastName'";
+  }
+  $html .= ' readonly >';
+  $html .= '<label for="reviewText">Review <span class="required">*</span></label>';
+  $html .= '<textarea name="reviewText" id="reviewText" required></textarea>';
+  $html .= '<br>';
+
+  $html .= '<input class="sign-in-up-btn" type="submit" value="Submit Review">';
+  $html .= "<input type='hidden' name='invId' value='$vehicle[invId]'>";
+  $html .= "<input type='hidden' name='clientId' value='$_SESSION[clientId]'>";
+  $html .= '<input type="hidden" name="action" value="add-review">';
+  $html .= '</form>';
+
+  return $html;
+}
+
+
+
+function buildReviewDisplay($vehicleReviews) {
+  $html = "<ul>";
+  foreach ($vehicleReviews as $review) {
+    $clientInitial = strtoupper(substr($review['clientFirstname'], 0, 1));
+    $clientLastname = ucfirst(strtolower($review['clientLastname']));
+    $date = date('F j, Y', strtotime($review['reviewDate']));
+    $html .= "<li><p><strong>$clientInitial$clientLastname </strong>Wrote on $date:</p>
+    
+    <div><p>  $review[reviewText]</p></div>
+    
+   </li>";
+  }
+  $html .= "</ul>";
+  return $html;
+}
+
+
+
+function buildReviewList($data) {
+  $inventoryDisplay = '<table>';
+  // Set up the table labels
+  $dataTable = '<thead>';
+  $dataTable .= '<tr><th>Vehicle Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+  $dataTable .= '</thead>';
+  // Set up the table body
+  $dataTable .= '<tbody>';
+  // Iterate over all vehicles in the array and put each in a row
+  foreach ($data as $element) {
+    $reviewId = $element['reviewId'];
+    $invMake = $element['invMake'];
+    $invModel = $element['invModel'];
+    $dates = date('F j, Y', strtotime($element['reviewDate']));
+    $dataTable .= "<tr><td>{$invMake} {$invModel} (Reviewed on $dates)  </td>";
+    $dataTable .= "<td><a href='/phpmotors/reviews?action=mod&reviewId={$reviewId}' title='Click to modify'>Modify</a></td>";
+    $dataTable .= "<td><a href='/phpmotors/reviews?action=del&reviewId={$reviewId}' title='Click to delete'>Delete</a></td></tr>";
+  }
+  $dataTable .= '</tbody>';
+  $inventoryDisplay .= $dataTable;
+  $inventoryDisplay .= '</table>';
+  // Display the contents in the Vehicle Management view
+  return $inventoryDisplay;
+}
+

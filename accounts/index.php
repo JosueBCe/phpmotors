@@ -11,6 +11,8 @@ require_once '../model/main-model.php';
 // Get the accounts model
 require_once '../model/accounts-model.php';
 
+// Get the reviews model
+require_once '../model/reviews-model.php';
 // Get the functions library
 require_once '../library/functions.php';
 session_start();
@@ -52,7 +54,7 @@ switch ($action) {
 
 
     // Checking if email already exists
-    $repeteadEmail =  checkExisitingEmail($clientEmail);
+    $repeteadEmail = checkExisitingEmail($clientEmail);
 
     if ($repeteadEmail) {
       $message = '<p class="notice">That email address already exists. Do you want to login instead?</p>';
@@ -133,6 +135,18 @@ switch ($action) {
         // $clientEmail = filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL);
 
         $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']}";
+
+        $reviewData = getClientReviews($_SESSION['clientId']);
+
+   
+        if (count($reviewData) > 0) {
+          // Do something if there is more than one review
+          $reviews = buildReviewList($reviewData);
+    
+        } else {
+          // Do something else if there is only one or zero reviews
+          $reviews = "<h4>Currently, you don't have any reviews</h4>";
+        }
         $message = " 
           <ul>
         <li>First name: $clientFirstname</li>
@@ -151,9 +165,9 @@ switch ($action) {
       exit;
     }
     break;
-    // default:
-    // include '/view/home.php';
-    // break;
+  // default:
+  // include '/view/home.php';
+  // break;
   case "Logout":
     // Logout script
 
@@ -190,11 +204,24 @@ switch ($action) {
     exit;
     break;
   case "admin":
+    // $ew = filter_input(INPUT_GET, 'admin-reviews', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $currentUser = " {$_SESSION['clientFirstname']} {$_SESSION['clientLastname']}  ";
-    $clientFirstname  = $_SESSION['clientFirstname'];
-    $clientLastname  = $_SESSION['clientLastname'];
-    $clientEmail  = $_SESSION['clientEmail'];
+    $clientFirstname = $_SESSION['clientFirstname'];
+    $clientLastname = $_SESSION['clientLastname'];
+    $clientEmail = $_SESSION['clientEmail'];
+    // get all the info of reviews by the news to olds. 
+    $reviewData = getClientReviews($_SESSION['clientId']);
+
+   
+    if (count($reviewData) > 0) {
+      // Do something if there is more than one review
+      $reviews = buildReviewList($reviewData);
+
+    } else {
+      // Do something else if there is only one or zero reviews
+      $reviews = "<h4>Currently, you don't have any reviews</h4>";
+    }
 
 
     $message = " 
@@ -208,7 +235,9 @@ switch ($action) {
       include '../view/admin.php';
       exit();
     } else {
+    
       include '../view/client-view.php';
+           exit();
     }
 
 
@@ -217,7 +246,7 @@ switch ($action) {
   case "user-update":
     $userId = $_SESSION['clientId'];
     $userInfo = getUserInfo($userId);
-    
+
     include '../view/user-update.php';
     break;
   case 'updateUser':
@@ -228,8 +257,8 @@ switch ($action) {
     $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
     $clientEmail = checkEmail($clientEmail);
 
-    $repeteadEmail =  checkExisitingEmail($clientEmail);
-    
+    $repeteadEmail = checkExisitingEmail($clientEmail);
+
     if ($repeteadEmail) {
       $message = "<p class='notice'>That email address already exists. Please Choose another Email</p>";
       include '../view/user-update.php';
@@ -244,13 +273,13 @@ switch ($action) {
       exit;
     }
 
-   
+
     // Send the data to the model
     $updateResult = updateUser($clientFirstname, $clientLastname, $clientEmail, $clientId);
 
     //Check and report the result
     if ($updateResult === 1) {
-    
+
       if (isset($_SESSION['form_data'])) {
         $form_data = $_SESSION['form_data'];
         unset($_SESSION['form_data']);
@@ -268,53 +297,56 @@ switch ($action) {
       header('location: /phpmotors/accounts/index.php?action=admin');
       exit;
     } else {
- 
+
       $message =
         "<p>Sorry, but the user information updating failed. Please try again.</p>";
       include '../view/user-update.php';
       exit;
     }
     break;
-    case 'updateUserPassword':
-      $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-      $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
-      $checkPassword = checkPassword($clientPassword);
+  case 'updateUserPassword':
+    $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+    $clientId = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT);
+    $checkPassword = checkPassword($clientPassword);
 
-      // Check for missing data
-      if (empty($checkPassword)) {
-        $messagePassword = '<p>Please make sure your Password matches the desired pattern.</p>';
-        include '../view/user-update.php';
-        exit;
+    // Check for missing data
+    if (empty($checkPassword)) {
+      $messagePassword = '<p>Please make sure your Password matches the desired pattern.</p>';
+      include '../view/user-update.php';
+      exit;
+    }
+
+    // Hash the checked password
+    $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
+
+    // Send the data to the model
+    $updateResult = updateUserPassword($hashedPassword, $clientId);
+
+    //Check and report the result
+    if ($updateResult === 1) {
+
+      if (isset($_SESSION['form_data'])) {
+        $form_data = $_SESSION['form_data'];
+        unset($_SESSION['form_data']);
+      } else {
+        $form_data = array();
       }
-  
-      // Hash the checked password
-      $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
-     
-      // Send the data to the model
-      $updateResult = updateUserPassword($hashedPassword, $clientId);
-  
-      //Check and report the result
-      if ($updateResult === 1) {
-      
-        if (isset($_SESSION['form_data'])) {
-          $form_data = $_SESSION['form_data'];
-          unset($_SESSION['form_data']);
-        } else {
-          $form_data = array();
-        }
-  
-        $message = "<p> <u><strong>The Password was updated successfully</strong></u></p>";
+
+      $message = "<p> <u><strong>The Password was updated successfully</strong></u></p>";
       $_SESSION['message'] = $message;
 
-        $_SESSION['updated'] = true;
-        header('location: /phpmotors/accounts/index.php?action=admin');
-        exit;
-      } else {
-   
-        $message =
-          "<p>Sorry, but the user password information updating failed. Please try again.</p>";
-        include '../view/user-update.php';
-        exit;
-      }
-      break;
+      $_SESSION['updated'] = true;
+      header('location: /phpmotors/accounts/index.php?action=admin');
+      exit;
+    } else {
+
+      $message =
+        "<p>Sorry, but the user password information updating failed. Please try again.</p>";
+      include '../view/user-update.php';
+      exit;
+    }
+    break;
+
+
 }
+?>

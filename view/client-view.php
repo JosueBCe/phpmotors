@@ -4,10 +4,11 @@ if (!isset($_SESSION['loggedin'])) {
   exit();
 }
 
-?><!DOCTYPE html>
-<html lang="en"> 
-      
-       
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+
 
 <head>
   <meta charset="UTF-8">
@@ -16,7 +17,7 @@ if (!isset($_SESSION['loggedin'])) {
   <link rel="stylesheet" href="../css/base.css" media="screen">
   <link rel="stylesheet" href="../css/medium.css" media="screen">
   <link rel="stylesheet" href="../css/large.css" media="screen">
-      <script src="/phpmotors/library/responsive-nav.js"></script>
+  <script src="/phpmotors/library/responsive-nav.js"></script>
   <title>Account Login | PHP Motors</title>
 </head>
 
@@ -31,24 +32,34 @@ if (!isset($_SESSION['loggedin'])) {
     ?>
   </nav>
   <main class="main-form">
-    <h1> <?php
-    if (isset($currentUser)) {
-      echo $currentUser;
-    }
-    ?></h1>
-    <h2>You are logged in.</h2>
+    <h1>
+      <?php
+      if (isset($currentUser)) {
+        echo $currentUser;
+      }
+      ?>
+    </h1>
+    <p>You are logged in.</p>
     <?php
     if (isset($message)) {
       echo $message;
     }
     ?>
-     <h3>Account Management</h3>
+    <hr>
+    <h3>Account Management</h3>
     <br>
     <p>Use this link to Update Account Information.</p>
     <br>
     <p><a href="/phpmotors/accounts/index.php?action=user-update">Update Account Information</a></p>
     <br>
+    <hr>
+    <h3>Manage Your Products Reviews</h3>
 
+    <?php
+    if (isset($reviews)) {
+      echo $reviews;
+    }
+    ?>
   </main>
   <footer>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>

@@ -7,6 +7,7 @@ require_once '../library/connections.php';
 // Get the PHP Motors model for use as needed
 require_once '../model/main-model.php';
 require_once '../model/vehicles-model.php';
+require_once '../model/reviews-model.php';
 require_once '../library/functions.php';
 // Get the accounts model
 
@@ -92,7 +93,7 @@ switch ($action) {
     break;
 
 
-    // Registering Vehicle 
+  // Registering Vehicle 
   case 'register-vehicle':
 
     $invMake = trim(filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -103,7 +104,7 @@ switch ($action) {
     $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
     $invStock = trim(filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_NUMBER_INT));
     $invColor = trim(filter_input(INPUT_POST, 'invColor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-    $classificationId = filter_input(INPUT_POST,  'classificationId', FILTER_SANITIZE_NUMBER_INT);
+    $classificationId = filter_input(INPUT_POST, 'classificationId', FILTER_SANITIZE_NUMBER_INT);
     // Check for missing data
     if (
       empty($invMake) || empty($invModel) || empty($invDescription) ||
@@ -161,7 +162,7 @@ switch ($action) {
     $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION));
     $invStock = trim(filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_NUMBER_INT));
     $invColor = trim(filter_input(INPUT_POST, 'invColor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-    $classificationId = filter_input(INPUT_POST,  'classificationId', FILTER_SANITIZE_NUMBER_INT);
+    $classificationId = filter_input(INPUT_POST, 'classificationId', FILTER_SANITIZE_NUMBER_INT);
     $invId = filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT);
 
     // Check for missing data
@@ -227,33 +228,46 @@ switch ($action) {
       exit;
     }
     break;
-    case 'classification':
-      $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-      $vehicles = getVehiclesByClassification($classificationName);
-      if(!count($vehicles)){
-       $message = "<p class='notice'>Sorry, no $classificationName could be found.</p>";
-      } else {
-       $vehicleDisplay = buildVehiclesDisplay($vehicles);
+  case 'classification':
+    $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $vehicles = getVehiclesByClassification($classificationName);
+    if (!count($vehicles)) {
+      $message = "<p class='notice'>Sorry, no $classificationName could be found.</p>";
+    } else {
+      $vehicleDisplay = buildVehiclesDisplay($vehicles);
+    }
+
+    include '../view/classification.php';
+    break;
+  case 'single-vehicle':
+
+    $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_NUMBER_INT);
+    $vehicle = getVehicleById($invId);
+    $thumbImages = getVehicleImagesById($invId);
+    $invMake = $vehicle['invMake'] . " " . $vehicle['invModel'];
+    $reviewsById = getReviewsById($invId);
+    if (!count($vehicle)) {
+      $message = "<p class='notice'>Sorry, no $classificationName could be found.</p>";
+    } else {
+      $vehicleDisplay = buildVehicleDisplay($vehicle);
+
+      $extraImages = buildExtraImagesDisplay($thumbImages);
+
+      if (isset($_SESSION['clientFirstname']) && isset($_SESSION['clientLastname'])) {
+        $addReviewDisplay = addReviewDisplays($vehicle);
       }
-  
-      include '../view/classification.php';
-      break;
-      case 'single-vehicle':
-        
-        $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_NUMBER_INT);
-        $vehicle = getVehicleById($invId);
-        $thumbImages =  getVehicleImagesById($invId); 
-        $invMake = $vehicle['invMake'] . " " .$vehicle['invModel'];
-        if(!count($vehicle)){
-         $message = "<p class='notice'>Sorry, no $classificationName could be found.</p>";
-        } else {
-        $vehicleDisplay = buildVehicleDisplay($vehicle);
-        
-        $extraImages = buildExtraImagesDisplay($thumbImages);
-       
-      
-      }
-    
-        include '../view/single-vehicle.php';
-        break;
+      if (count($reviewsById) > 0) {
+        // Do something if there is more than one review
+        $reviewsWritter = buildReviewDisplay($reviewsById);
+
+    } else {
+        // Do something else if there is only one or zero reviews
+        $reviewsWritter = '<h4>Be the first to write a review!</h4>';
+    }
+    }
+
+    include '../view/single-vehicle.php';
+    break;
 }
+
+?>

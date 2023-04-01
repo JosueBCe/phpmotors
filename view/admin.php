@@ -49,13 +49,14 @@ if (isset($_SESSION['message'])) {
             } ?>
             
           </h1>
+              <h2>You are logged in.</h2>
         <?php
         if (isset($message)) {
             echo $message;
         }
         ?>
-    <h2>You are logged in.</h2>
-  
+
+        <hr>
     <h3>Account Management</h3>
     <br>
     <p>Use this link to Update Account Information.</p>
@@ -63,6 +64,15 @@ if (isset($_SESSION['message'])) {
     <p><a href="/phpmotors/accounts/index.php?action=user-update">Update Account Information</a></p>
     <br>
     <br>
+    <hr>
+    <h3>Manage Your Products Reviews</h3>
+
+    <?php
+        if (isset($reviews)) {
+            echo$reviews ;
+        }
+        ?>
+      <hr>
     <h3>Inventory Management</h3>
     <br>
     <p>Use this link to manage the inventory.</p>
@@ -72,6 +82,7 @@ if (isset($_SESSION['message'])) {
   <footer>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>
   </footer>
+
 </body>
 
 </html>
