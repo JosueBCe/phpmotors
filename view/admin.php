@@ -13,8 +13,7 @@ if (isset($_SESSION['message'])) {
     $message .= '<br /><br />';
    }
 
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 
@@ -49,13 +48,13 @@ if (isset($_SESSION['message'])) {
             } ?>
             
           </h1>
-              <h2>You are logged in.</h2>
-        <?php
-        if (isset($message)) {
-            echo $message;
-        }
-        ?>
-
+          <?php
+    if (isset($message)) {
+      echo $message;
+    } else {
+      echo "<p>You are logged in.</p>";
+    }
+    ?>
         <hr>
     <h3>Account Management</h3>
     <br>

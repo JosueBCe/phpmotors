@@ -23,7 +23,10 @@ if (!isset($_SESSION['loggedin']) ) {
                 echo "$invInfo[invMake] $invInfo[invModel] Review";
             } elseif (isset($invMake) && isset($invModel)) {
                 echo "$invMake $invModel Review";
-            } ?> | PHP Motors</title>
+            } else {
+                echo " $_SESSION[invMake]
+                $_SESSION[invModel] Review";
+            }?> | PHP Motors</title>
 
 </head>
 
@@ -42,6 +45,9 @@ if (!isset($_SESSION['loggedin']) ) {
                 echo "$invInfo[invMake] $invInfo[invModel] Review";
             } elseif (isset($invMake) && isset($invModel)) {
                 echo "$invMake $invModel Review";
+            }else {
+                echo " $_SESSION[invMake]
+                $_SESSION[invModel] Review";
             } ?></h1>
         <?php
         if (isset($message)) {
@@ -59,11 +65,13 @@ if (!isset($_SESSION['loggedin']) ) {
           
             <label for="reviewText">Review Text <span class="required">*</span></label>
             <textarea name="reviewText" id="reviewText" required>
-            <?php if (isset($reviewText)) {
+            <?php if (isset($reviewText) && !isset($restoredText)) {
                 echo "$reviewText";
-            } elseif (isset($invInfo['reviewText'])) {
+            } elseif (isset($invInfo['reviewText']) && !isset($restoredText)) {
                 echo "$invInfo[reviewText]";
-            } ?>
+            } else {
+                echo $restoredText;
+            }?>
         </textarea>
            <br>
             <input class="sign-in-up-btn" type="submit" name="submit" value="Update Review">

@@ -82,16 +82,21 @@ switch ($action) {
     if (count($invInfo) < 1) {
       $message = 'Sorry, no vehicle information could be found.';
     }
+    $_SESSION['invMake'] = $invInfo['invMake'];
+    $_SESSION['invModel'] = $invInfo['invModel'];
+    $_SESSION['reviewText'] = $invInfo['reviewText'];
+   
     include '../view/review-update.php';
     exit;
     break;
   case 'updateReview':
-
+    $message = "";
     $reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_SANITIZE_NUMBER_INT);
     $reviewText = trim(filter_input(INPUT_POST, 'reviewText', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     // Check for missing data
     if (empty($reviewText) || empty($reviewId)) {
-      $message = '<p>Please provide all the required information to update the review.</p>';
+      $message .= "<p>Please provide all the required information to update the review.</p>";
+      $restoredText = $_SESSION['reviewText'];
       include '../view/review-update.php';
       exit;
     }
@@ -109,7 +114,7 @@ switch ($action) {
       }
       $message = "<p><strong>The review was updated successfully</strong></p>";
       $_SESSION['message'] = $message;
-      header('location: /phpmotors/accounts/index.php?action=admin&reviews=admin-review');
+      header('location: /phpmotors/accounts/index.php?action=admin');
       exit;
     } else {
       $message = "<p>Sorry, but the review updating failed. Please try again.</p>";
@@ -120,7 +125,7 @@ switch ($action) {
 
     $reviewId = filter_input(INPUT_GET, 'reviewId', FILTER_VALIDATE_INT);
     $invInfo = getReviewAndInventoryInfo($reviewId);
-
+    
     $dates = '<strong>Reviewed on ' . date('F j, Y', strtotime($invInfo['reviewDate'])) . '</strong>';
     if (count($invInfo) < 1) {
       $message = 'Sorry, no vehicle information could be found.';
@@ -137,7 +142,7 @@ switch ($action) {
       $message = "<p class='notice'>Congratulations, the review was successfully deleted.</p>";
       $_SESSION['message'] = $message;
       header('location: /phpmotors/accounts/index.php?action=admin&reviews=admin-review');
-      exit; 
+      exit;
     } else {
       $message = "<p class='notice'>Error: the review was not deleted.</p>";
       $_SESSION['message'] = $message;
@@ -145,35 +150,7 @@ switch ($action) {
       exit;
     }
     break;
-  case 'classification':
-    $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $vehicles = getVehiclesByClassification($classificationName);
-    if (!count($vehicles)) {
-      $message = "<p class='notice'>Sorry, no $classificationName could be found.</p>";
-    } else {
-      $vehicleDisplay = buildVehiclesDisplay($vehicles);
-    }
 
-    include '../view/classification.php';
-    break;
-  case 'single-vehicle':
-
-    $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_NUMBER_INT);
-    $vehicle = getVehicleById($invId);
-    $thumbImages = getVehicleImagesById($invId);
-    $invMake = $vehicle['invMake'] . " " . $vehicle['invModel'];
-    if (!count($vehicle)) {
-      $message = "<p class='notice'>Sorry, no $classificationName could be found.</p>";
-    } else {
-      $vehicleDisplay = buildVehicleDisplay($vehicle);
-
-      $extraImages = buildExtraImagesDisplay($thumbImages);
-
-
-    }
-
-    include '../view/single-vehicle.php';
-    break;
 }
 
 ?>

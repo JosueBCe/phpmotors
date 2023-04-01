@@ -46,34 +46,34 @@
 
   </main>
   <section>
-  <hr>
-  <h1>Customer Reviews</h1>
-  <?php
+    <hr>
+    <h2>Customer Reviews</h2>
+    <?php
 
-  if (isset($_SESSION['loggedin'])) {
-    if (isset($addReviewDisplay) && isset($_SESSION['clientFirstname']) && isset($_SESSION['clientLastname'])) {
-      echo $addReviewDisplay;
-    }
-    
-    if (isset($_SESSION["messageReview"])) {
-      echo $_SESSION["messageReview"];
-    }
-    
-  } else {
-    echo "You must <a href='/phpmotors/accounts/index.php'
+    if (isset($_SESSION['loggedin'])) {
+      if (isset($addReviewDisplay) && isset($_SESSION['clientFirstname']) && isset($_SESSION['clientLastname'])) {
+        echo $addReviewDisplay;
+      }
+
+      if (isset($_SESSION["messageReview"])) {
+        echo $_SESSION["messageReview"];
+      }
+
+    } else {
+      echo "You must <a href='/phpmotors/accounts/index.php'
     >login</a> to write a review.";
-  }
-  ?>
-
- 
-  <?php
+    }
+    ?>
 
 
-  if (isset($reviewsWritter)) {
-    echo $reviewsWritter;
-  }  
+    <?php
 
-  ?>
+
+    if (isset($reviewsWritter)) {
+      echo $reviewsWritter;
+    }
+
+    ?>
   </section>
   <footer>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/snippets/footer.php'; ?>

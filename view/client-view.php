@@ -3,9 +3,12 @@ if (!isset($_SESSION['loggedin'])) {
   header('Location: /phpmotors/index.php');
   exit();
 }
+if (isset($_SESSION['message'])) {
+  $message .= "<strong>". $_SESSION['message'] ."</strong>";
+ }
 
-?>
-<!DOCTYPE html>
+
+?><!DOCTYPE html>
 <html lang="en">
 
 
@@ -39,10 +42,12 @@ if (!isset($_SESSION['loggedin'])) {
       }
       ?>
     </h1>
-    <p>You are logged in.</p>
+  
     <?php
     if (isset($message)) {
       echo $message;
+    } else {
+      echo "<p>You are logged in.</p>";
     }
     ?>
     <hr>
@@ -67,3 +72,5 @@ if (!isset($_SESSION['loggedin'])) {
 </body>
 
 </html>
+
+<?php unset($_SESSION['message']); ?>
