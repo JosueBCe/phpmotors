@@ -23,6 +23,9 @@
             color: black;
         }
 /* ======================= SINGLE VEHICLE ======================= */
+.reviews {
 
+    grid-template-columns: repeat(auto-fit, 480px);
+}
 
     }

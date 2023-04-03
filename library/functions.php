@@ -326,12 +326,12 @@ function addReviewDisplays($vehicle)
 
 
 function buildReviewDisplay($vehicleReviews) {
-  $html = "<ul>";
+  $html = "<ul class='reviews-list'>";
   foreach ($vehicleReviews as $review) {
     $clientInitial = strtoupper(substr($review['clientFirstname'], 0, 1));
     $clientLastname = ucfirst(strtolower($review['clientLastname']));
     $date = date('F j, Y', strtotime($review['reviewDate']));
-    $html .= "<li><p><strong>$clientInitial$clientLastname </strong>Wrote on $date:</p>
+    $html .= "<li><p class='review-author'><strong>$clientInitial$clientLastname </strong>Wrote on $date:</p>
     
     <div><p>  $review[reviewText]</p></div>
     

@@ -45,8 +45,10 @@
     } ?>
 
   </main>
-  <section>
-    <hr>
+  <hr>
+
+  <section class="reviews">
+    <div class="add-review">
     <h2>Customer Reviews</h2>
     <?php
 
@@ -64,7 +66,7 @@
     >login</a> to write a review.";
     }
     ?>
-
+</div>
 
     <?php
 
