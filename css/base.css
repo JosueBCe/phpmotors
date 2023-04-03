@@ -517,3 +517,20 @@ input:required:valid {
     background-color: var(--dark-gray-color);
     color: white;
 }
+
+
+.lack-msg {
+    background-color: red;
+    font-weight: bold;
+    padding: 0.4rem;         
+}
+.success-msg {
+    background-color: forestgreen;
+    font-weight: bold;
+    padding: 0.4rem;                       
+}
+.failed-msg{
+    background-color: orange;
+    font-weight: bold;
+    padding: 0.4rem;
+}

@@ -52,7 +52,7 @@ switch ($action) {
     // $vehicle = getVehicleById($invId);
     // Check for missing data
     if (empty($reviewText) || empty($clientId) || empty($invId)) {
-      $_SESSION["messageReview"] = "<p>Please provide all the required information to add a review.</p>";
+      $_SESSION["messageReview"] = "<p class='lack-msg'>Please provide all the required information to add a review.</p>";
       header('Location: /phpmotors/vehicles/?action=single-vehicle&invId=' . "urlencode($invId)");
       exit;
     }
@@ -64,11 +64,11 @@ switch ($action) {
 
     // Check and report the result
     if ($addOutcomeReview === 1) {
-      $_SESSION["messageReview"] = "<p>Thanks for submitting your review!</p>";
+      $_SESSION["messageReview"] = "<p class='success-msg'>Thanks for submitting your review!</p>";
       header('Location: /phpmotors/vehicles/?action=single-vehicle&invId=' . "urlencode($invId)");
       exit;
     } else {
-      $_SESSION["messageReview"] = "<p>Sorry, but the review could not be added. Please try again.</p>";
+      $_SESSION["messageReview"] = "<p class='failed-msg'>Sorry, but the review could not be added. Please try again.</p>";
 
       header('Location: /phpmotors/vehicles/?action=single-vehicle&invId=' . "urlencode($invId)");
       exit;
@@ -95,7 +95,7 @@ switch ($action) {
     $reviewText = trim(filter_input(INPUT_POST, 'reviewText', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
     // Check for missing data
     if (empty($reviewText) || empty($reviewId)) {
-      $message .= "<p>Please provide all the required information to update the review.</p>";
+      $message .= "<p class='lack-msg'>Please provide all the required information to update the review.</p>";
       $restoredText = $_SESSION['reviewText'];
       include '../view/review-update.php';
       exit;
@@ -112,12 +112,12 @@ switch ($action) {
       } else {
         $form_data = array();
       }
-      $message = "<p><strong>The review was updated successfully</strong></p>";
+      $message = "<p class='success-msg'><strong>The review was updated successfully</strong></p>";
       $_SESSION['message'] = $message;
       header('location: /phpmotors/accounts/index.php?action=admin');
       exit;
     } else {
-      $message = "<p>Sorry, but the review updating failed. Please try again.</p>";
+      $message = "<p class='failed-msg'>Sorry, but the review updating failed. Please try again.</p>";
       include '../view/review-update.php';
       exit;
     }
@@ -139,12 +139,12 @@ switch ($action) {
 
     $deleteResult = deleteReview($reviewId);
     if ($deleteResult) {
-      $message = "<p class='notice'>Congratulations, the review was successfully deleted.</p>";
+      $message = "<p class='success-msg'>Congratulations, the review was successfully deleted.</p>";
       $_SESSION['message'] = $message;
       header('location: /phpmotors/accounts/index.php?action=admin&reviews=admin-review');
       exit;
     } else {
-      $message = "<p class='notice'>Error: the review was not deleted.</p>";
+      $message = "<p class='failed-msg'>Error: the review was not deleted.</p>";
       $_SESSION['message'] = $message;
       header('location: /phpmotors/accounts/index.php?action=admin&reviews=admin-review');
       exit;
